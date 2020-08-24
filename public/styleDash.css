@@ -1,0 +1,1532 @@
+/* .newRunButton
+{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: white;
+    border: 3px solid rgb(30, 144, 255);
+    border-radius: 25px;
+    background: rgb(30, 144, 255);
+    padding: 10px 30px;
+    margin: 5px 3%;
+    cursor: pointer;
+
+
+} */
+
+
+
+.form-popup,
+.success-message {
+    display: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, .5);
+    transition: .5s;
+}
+.form-popup .form-wrapper {
+    top: 2em;
+    max-width: 700px;
+    background: white;
+    padding: 50px;
+    padding-top: 50px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+.form-title {
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.close-form {
+    border-radius: 0px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9;
+    cursor: pointer;
+    padding: 10px 30px;
+    background-color: #83b566;
+    border: 2px solid #83b566;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    transition: .3s;
+}
+.send-form {
+    cursor: pointer;
+    padding: 10px 30px;
+    background-color: #83b566;
+    border: 2px solid #83b566;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
+    transition: .3s;
+}
+.form-control:focus {
+    border-color: #83b566;
+    box-shadow: 0 0 0 0.2rem rgba(131, 181, 102, 0.25);
+}
+.btn:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.35);
+}
+.success-message {
+    text-align: center;
+}
+.success-message h1 {
+    color: #ffffff;
+    margin-top: 3em;
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+
+.postItem{
+
+      width: 47% !important;
+      float: left !important;
+      margin-right: 3% !important;
+      margin-top: 7px !important;
+      padding: 5px 10px !important;
+}
+
+.activities
+{
+  padding: 0 !important;
+}
+
+#todaysActivities
+{
+  text-align: center !important;
+}
+
+#todaysPlan
+{
+  text-align: center !important;
+}
+
+.postPfp
+{
+  width: 25px !important;
+  height: 25px !important;
+  margin-right: 100% !important;
+}
+.routeItem
+{
+  margin: 5px 0 !important;
+}
+
+#summaries
+{
+  font-size: 20px !important;
+}
+
+
+.banner
+{
+  width: 80% !important;
+}
+
+#routesPosts
+{
+  padding: 0 !important
+}
+
+.formStyle
+{
+  width: 80% !important;
+  margin: 25px 10% !important;
+}
+
+.inp
+{
+  margin-bottom: 15px !important;
+}
+
+#segmentsForm
+{
+  margin: 25px 0 !important;
+  width: 100% !important;
+}
+
+.addSegmentButtons
+{
+  width: 100% !important;
+
+}
+
+.searchBar{
+    transform: translate3d(0px, 60px, 0px)!important;
+}
+
+.dropdown-toggle.navdrop {
+       display: none;
+   }
+
+   .navdropmenu {
+       display: block;
+       position: relative;
+       border-width: 0;
+       padding: 0;
+       margin: 0;
+   }
+
+   .dropdown-item.navdrop {
+
+       text-align: left !important;
+       font-size: 18px !important;
+       padding: 0 !important;
+       color: white !important;
+       background: rgb(30, 144, 255) !important;
+   }
+
+th, td {
+  padding: 10px !important;
+}
+
+
+.postNameSpan
+{
+  line-height: 30px !important;
+}
+.milesMetersGroup
+{
+  margin-bottom: 10px !important;
+}
+
+.dateTitle
+{
+  text-align: center !important;
+}
+
+.analysisChart
+{
+  padding: 25px !important;
+}
+
+.analysisExpand
+{
+  width: 120% !important;
+}
+
+#analysisType
+{
+  margin-top: 50px !important;
+}
+
+
+.dateSection
+{
+  padding: 25px !important;
+
+  background: white;
+
+  box-shadow: none !important;
+  border-radius: 10px;
+
+}
+
+
+
+.segment
+{
+  margin-top: 10px;
+}
+
+
+.addRoute
+{
+  width: 35% !important;
+  font-size: 14px !important;
+
+}
+
+.addCustomDistance
+{
+  width: 65% !important;
+  font-size: 14px !important;
+}
+
+#membersList
+{
+  width: 80% !important;
+  margin-left: 10% !important;
+  margin-right: 10% !important;
+  padding: 20px !important;
+}
+
+#teamMembers
+{
+  padding: 0 !important
+}
+
+#summaryList
+{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#analysisSection
+{
+  padding: 0 !important
+}
+
+#noPostsSection
+{
+  padding: 0 !important
+}
+
+#joinTeamSection
+{
+  padding: 0 !important
+}
+
+.banner
+{
+  padding: 30px !important;
+}
+
+.bannerHead
+{
+  font-size: 36px !important;
+}
+
+.reportPfp
+{
+  width: 25px;
+  height: 25px;
+}
+
+.reportTable
+{
+  font-size: 11px;
+
+}
+
+
+
+.titleDiv
+{
+  width: 80% !important;
+  padding: 0 !important;
+  margin: 0 10% !important;
+  text-align: center !important;
+}
+
+.mainTitle
+{
+  text-align: center !important;
+}
+
+#routes
+{
+  width: 80% !important;
+  margin: 25px 10% !important;
+}
+
+.memberTitle
+{
+  font-size: 18px !important;
+}
+
+
+
+.teamMember
+{
+  min-height: 60px !important;
+}
+
+.admin
+{
+  right: 20px;
+}
+
+.mod
+{
+  top: 10px !important;
+}
+
+.member
+{
+ top: 10px !important;
+}
+
+.ban
+{
+  top: 10px !important;
+}
+
+.analysisDiv
+{
+  margin: 0 !important;
+}
+
+}
+
+
+
+body{
+  background: white;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.runPost
+{
+  transition: border 0.5s;
+}
+
+.icon-bar {
+	width: 26px;
+	height: 3px;
+	background-color: white;
+	display: block;
+	transition: all 0.2s;
+	margin-top: 4px
+}
+
+.navbar-toggler {
+  border: none;
+  background: transparent !important;
+}
+.navbar-toggler .top-bar {
+ transform: rotate(45deg);
+ transform-origin: 10% 10%;
+}
+
+.navbar-toggler .middle-bar {
+ opacity: 0;
+}
+
+.navbar-toggler .bottom-bar {
+ transform: rotate(-45deg);
+ transform-origin: 10% 90%;
+}
+
+.navbar-toggler.collapsed .top-bar {
+ transform: rotate(0);
+}
+
+.navbar-toggler.collapsed .middle-bar {
+ opacity: 1;
+}
+
+.navbar-toggler.collapsed .bottom-bar {
+ transform: rotate(0);
+}
+button{
+  cursor: pointer;
+}
+
+button:focus
+{
+    outline: none;
+}
+
+
+#pfpForm
+{
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(5,5, 5,.4);
+  padding: 50px;
+  width: 75%;
+
+}
+
+#leaveTeam
+{
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: red;
+}
+
+
+
+.settingsTitle
+{
+  font-weight: bold;
+  margin-top: 25px;
+}
+
+.settingsText
+{
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+#editPfp
+{
+
+  background: white;
+  border: none;
+}
+
+.activities
+{
+
+  padding: 10px 4%;
+  margin-left: 0px;
+}
+
+
+
+.inp {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  border-radius: 3px;
+
+}
+.inp .label {
+  position: absolute;
+  top: 20px;
+  left: 12px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+.inp .focus-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.02);
+  z-index: -1;
+  -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+  -webkit-transform-origin: left;
+          transform-origin: left;
+}
+.inp input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  width: 100%;
+  border: 0;
+  font-family: inherit;
+  padding: 16px 12px 0 12px;
+  height: 60px;
+  font-size: 16px;
+  font-weight: 400;
+  background: rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  color: #000;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+}
+.inp input:hover {
+  background: rgba(0, 0, 0, 0.07);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+.inp input:not(:placeholder-shown) + .label {
+  color: rgba(0, 0, 0, 0.5);
+  -webkit-transform: translate3d(0, -12px, 0) scale(0.75);
+          transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inp input:focus {
+  background: rgba(0, 0, 0, 0.02);
+  outline: none;
+  box-shadow: inset 0 -2px 0 rgb(30, 144, 255);
+}
+.inp input:focus + .label {
+  color: rgb(30, 144, 255);
+  -webkit-transform: translate3d(0, -12px, 0) scale(0.75);
+          transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inp input:focus + .label + .focus-bg {
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+
+#planText
+{
+  width: 200%;
+  border: none;
+  border-bottom: 1px solid rgb(30, 144, 255);
+  padding: 10px;
+    overflow: auto;
+    outline: none;
+    white-space: normal;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+#newTeam
+{
+  color: rgb(30, 144, 255);
+}
+
+#newTeam:hover
+{
+  color: rgb(30, 144, 255);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#planText:focus
+{
+  border-bottom: 3px solid rgb(30, 144, 255);
+}
+
+
+.inpdark {
+  position: relative;
+  margin: auto;
+  width: 100%;
+  border-radius: 3px;
+
+}
+.inpdark .labeldark {
+  position: absolute;
+  top: 20px;
+  left: 12px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  -webkit-transform-origin: 0 0;
+          transform-origin: 0 0;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+.inpdark .focus-bgdark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: -1;
+  -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+  -webkit-transform-origin: left;
+          transform-origin: left;
+}
+.inpdark input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  width: 100%;
+  border: 0;
+  font-family: inherit;
+  padding: 16px 12px 0 12px;
+  height: 60px;
+  font-size: 16px;
+  font-weight: 400;
+  background: white;
+  box-shadow: inset 0 -1px 0 black;
+  color: #000;
+  -webkit-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+}
+.inpdark input:hover {
+  background: white;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+.inpdark input:not(:placeholder-shown) + .labeldark {
+  color: rgba(0, 0, 0, 0.5);
+  -webkit-transform: translate3d(0, -12px, 0) scale(0.75);
+          transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inpdark input:focus {
+  background: white;
+  outline: none;
+  box-shadow: inset 0 -2px 0 rgb(30, 144, 255);
+}
+.inpdark input:focus + .labeldark {
+  color: rgb(30, 144, 255);
+  -webkit-transform: translate3d(0, -12px, 0) scale(0.75);
+          transform: translate3d(0, -12px, 0) scale(0.75);
+}
+.inpdark input:focus + .labeldark + .focus-bgdark {
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+
+.todayPlan
+{
+  font-size: 20px;
+}
+
+
+.noBorder
+{
+  border: none;
+}
+
+.error
+{
+  color: red;
+  font-size: 12px;
+  text-align: center;
+  display:none;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 150px;
+    overflow-x: hidden;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#routeForm
+{
+  background: white;
+  margin: 0px 5%;
+  padding: 50px 20%;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(5,5, 5,.4);
+}
+
+
+
+.nav-link
+{
+  font-size: 18px;
+  padding: 15px 0px;
+}
+
+#closePfpForm
+{
+  position: absolute;
+  top:
+  color: rgb(30, 144, 255);
+  top: 20px;
+  right: 20px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+input
+{
+  padding: 5px;
+}
+
+.segmentLabel
+{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+
+#routes
+{
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(5,5, 5,.4);
+  padding: 50px;
+}
+
+
+
+.ambox
+{
+  background: white;
+  color: #212529;
+    /* border: 1px solid rgb(30, 144, 255); */
+}
+
+.ambox.active
+{
+  color:white;
+  background: rgb(30, 144, 255);
+    border: 1px solid rgb(30, 144, 255);
+}
+
+
+
+
+.pmbox
+{
+  background: white;
+  color: #212529;
+    /* border: 1px solid rgb(30, 144, 255); */
+}
+
+.pmbox.active
+{
+  color:white;
+  background: rgb(30, 144, 255);
+  border: 1px solid rgb(30, 144, 255);
+}
+
+.pmbox:hover
+{
+  color:white;
+  background: rgb(30, 144, 255);
+    border: 1px solid rgb(30, 144, 255);
+}
+
+.ambox:hover
+{
+  color:white;
+  background: rgb(30, 144, 255);
+    border: 1px solid rgb(30, 144, 255);
+}
+
+.analysisDiv
+{
+  width: 90% !important;
+  margin-left: 5% !important;
+  margin-right: 5% !important;
+}
+
+#teamReport
+{
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+
+
+.miles
+{
+  background: white;
+  color: #212529;
+    /* border: 1px solid rgb(30, 144, 255); */
+}
+
+.miles.active
+{
+  color:white;
+  background: rgb(30, 144, 255);
+    border: 1px solid rgb(30, 144, 255);
+}
+
+.meters
+{
+  background: white;
+  color: #212529;
+    /* border: 1px solid rgb(30, 144, 255); */
+}
+
+.meters.active
+{
+  color:white;
+  background: rgb(30, 144, 255);
+  border: 1px solid rgb(30, 144, 255);
+}
+
+.meters:hover
+{
+  color:white;
+  background: rgb(30, 144, 255);
+    border: 1px solid rgb(30, 144, 255);
+}
+
+.miles:hover
+{
+  color:white;
+  background: rgb(30, 144, 255);
+    border: 1px solid rgb(30, 144, 255);
+}
+
+
+
+
+.nav-link
+{
+  color:white !important;
+  margin-left: 0.5rem !important;
+  margin-right: 0.5rem !important;
+}
+
+.addRoute
+{
+  color: white;
+  padding: 15px;
+  background: rgb(30, 144, 255);
+  border-radius: 30px;
+  border: 2px solid white;
+  width: 25%;
+  cursor: pointer;
+
+}
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+.addCustomDistance
+{
+  color: white;
+  padding: 15px;
+  background: rgb(30, 144, 255);
+  border-radius: 30px;
+  border: 2px solid white;
+  width: 25%;
+  cursor: pointer;
+}
+
+.addRoute:hover
+{
+  color: rgb(30, 144, 255);
+  background: white;
+  border: 2px solid rgb(30, 144, 255);
+
+}
+
+.addCustomDistance:hover
+{
+  color: rgb(30, 144, 255);
+  background: white;
+  border: 2px solid rgb(30, 144, 255);
+
+}
+
+.postPfp
+{
+  float:left;
+  margin-right: 10px;
+}
+
+.dropdown-menu
+{
+  background: rgb(230, 230, 230);
+  border: none;
+  border-radius: 5px;
+}
+
+.sidebar-item.active{
+  background: rgb(0,0, 0, 0.2);
+  border-left: 6px solid white;
+
+
+
+}
+
+.sidebar-item:hover
+{
+  background: rgb(0,0, 0, 0.2);
+}
+
+
+
+.padZero
+{
+  padding: 0 !important;
+}
+
+.nav-item
+{
+  padding-left: 20px;
+  padding-right: 20px;
+  transition: 0.3s;
+
+}
+
+/* .newRunButton:hover
+{
+    text-decoration: none;
+    color: white;
+} */
+
+.formTitle
+{
+    font-size: 45px;
+    color: black;
+    margin: 0px 0;
+}
+nav{
+  background-color: rgb(30, 144, 255) !important;
+  padding-bottom: 0 !important;
+}
+
+.formLabel
+{
+    display: block;
+    text-align: left;
+    padding: 10px 0;
+    font-size: 14px;
+}
+#accInfo
+{
+  margin: 0 0;
+  width: 80%;
+  background:
+  rgb(230, 230, 230);
+  text-align:center;
+    border-top: 10px solid rgb(30, 144, 255);
+    text-align: left;
+    padding-bottom: 50px;
+
+}
+
+.routeTitle
+{
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.routeItem
+{
+  list-style: none;
+  float: left;
+  width: 100%;
+  margin-right: 5%;
+  background: white;
+  padding: 20px 20px;
+  border-bottom: 3px solid rgb(230, 230, 230);
+}
+
+.formButton
+{
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    border: 3px solid rgb(30, 144, 255);
+    border-radius: 25px;
+    background: rgb(30, 144, 255);
+    padding: 10px 30px;
+    margin: 30px 3%;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+}
+
+#pfpButton
+{
+  display: none;
+}
+
+.formButton:focus
+{
+    outline: none;
+}
+
+.formButton:hover
+{
+  box-shadow: 0 0 15px rgba(5,5, 5,.4);
+}
+
+
+
+.formStyle
+{
+    text-align: center;
+    display: inline-block;
+    padding-top: 5%;
+    width: 100%;
+}
+
+input
+{
+    width: 100%;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid lightgrey;
+}
+
+input:focus
+{
+    outline: none;
+}
+
+
+td, th {
+  border: 1px solid lightgrey;
+
+  padding: 8px;
+}
+
+tr{background-color: white}
+
+
+
+tr:hover {}
+ th {
+
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+
+}
+.topRow {
+color: white;
+ background: rgb(240, 240, 240);
+}
+
+
+th, td {
+  padding: 15px;
+}
+
+.postTitle
+{
+  font-size: 14px;
+  font-weight: bold;
+  text-align: left;
+  color: black !important;
+  margin: 0px 0;
+}
+
+.postName
+{
+  font-size: 24px;
+}
+
+.userInfo
+{
+  font-weight: normal;
+  font-size: 12px;
+  width:100%;
+}
+
+.mainTitle
+{
+  font-size: 65px;
+  font-weight:bold;
+  text-align: left;
+}
+
+div.sticky {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+.gradientback
+{
+  background: rgb(30,144,255);
+background: -moz-linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%);
+background: -webkit-linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%);
+background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%);
+}
+
+.removePost
+{
+  color: rgb(30, 144, 255);
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 0px;
+  right:0px;
+  font-size: 24px;
+  cursor:pointer;
+  padding: 0;
+}
+.removePost:focus
+{
+  outline: none;
+}
+
+.removePost:hover
+{
+  color: rgb(3, 123, 241);
+}
+
+.removeRoute
+{
+  color: rgb(30, 144, 255);
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 0px;
+  right:0px;
+  font-size: 24px;
+  cursor:pointer;
+  padding: 0;
+}
+
+.unbanned
+{
+  color: gray;
+  font-size: 24px;
+  position: absolute;
+  top: 18px;
+  right:15px;
+  cursor:pointer;
+  transition: color 0.5s;
+
+}
+
+.member
+{
+  color: gray;
+  font-size: 18px;
+  position: absolute;
+  top: 18px;
+  right:50px;
+  cursor:pointer;
+  line-height: 24px;
+  transition: color 0.5s;
+
+}
+
+.mod
+{
+  color: rgb(30, 144, 255);
+  font-size: 18px;
+  position: absolute;
+  top: 18px;
+  right:50px;
+  cursor:pointer;
+  line-height: 24px;
+  transition: color 0.5s;
+}
+
+.admin
+{
+
+    color: rgb(30, 144, 255);
+    font-size: 18px;
+    position: absolute;
+    top: 18px;
+    right:50px;
+    line-height: 24px;
+    transition: color 0.5s;
+
+}
+
+.memberType:hover
+{
+  color: rgb(30, 144, 255);
+}
+
+.banned
+{
+  color: rgb(30, 144, 255);
+  font-size: 24px;
+  position: absolute;
+  top: 18px;
+  right:15px;
+  cursor:pointer;
+}
+
+.unbanned:hover
+{
+  color: rgb(30, 144, 255);
+}
+
+.memberTitle
+{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.analysismemberTitle
+{
+  font-size: 16px;
+  font-weight: bold;
+}
+.analysisChart
+{
+  background: rgb(255, 255, 255);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(5,5, 5,.4);
+  margin: 0px;
+}
+
+
+.titleDiv
+{
+  /* background: rgb(76, 133, 178);
+  border-radius: 20px; */
+  padding: 20px;
+  padding-top: 0;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+  text-align: left;
+}
+
+#summaries
+{
+  width: 100%;
+}
+
+#analysisType
+{
+  width: 100%;
+}
+
+.buttonHeader
+{
+  width: 50%;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 0;
+  border: none;
+  background: rgb(230, 230, 230);
+  color: black;
+  cursor: pointer;
+}
+
+.buttonHeader:hover
+{
+  background: rgb(30, 144, 255) !important;
+  color: white !important;
+}
+
+#daily{
+  width: 50%;
+  padding: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  border-radius: 0;
+  border: none;
+  background: rgb(230, 230, 230);
+  color: black;
+  cursor: pointer;
+}
+
+#daily:hover
+{
+  background: rgb(30, 144, 255) !important;
+  color: white !important;
+}
+#weekly:hover
+{
+  background: rgb(30, 144, 255) !important;
+  color: white !important;
+}
+
+#weekly{
+  width: 50%;
+  padding: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  border-radius: 0;
+  border: none;
+  background: rgb(230, 230, 230);
+  color: black;
+  cursor: pointer;
+}
+#byWeek
+{
+  font-size: 30px !important;
+}
+
+#byMonth
+{
+  font-size: 30px !important;
+}
+
+.selectedSummary
+{
+  background: rgb(30, 144, 255) !important;
+  color: white !important;
+}
+
+
+
+.teamMember
+{
+    list-style: none;
+    transition: background 0.3s, border-left 0.3s;
+    width: 100%;
+    background: white;
+    padding: 10px;
+    margin-bottom: 2%;
+    position: relative;
+    border-bottom: 3px solid rgb(230, 230, 230);
+
+}
+
+.analysisMember
+{
+    list-style: none;
+    transition: background 0.1s, color 0.1s;
+    width: 100%;
+    background: rgb(230, 230, 230);
+    padding: 10px;
+    position:relative;
+    margin-bottom: 2%;
+    border-color: rgb(30, 144, 255);
+    cursor: pointer;
+}
+
+
+.chartTitle
+{
+  text-align: center;
+  font-weight: bold;
+
+  font-size: 20px;
+}
+.analysisMember:hover
+{
+  background: rgb(30, 144, 255);
+  color: white;
+}
+
+.selectedMember
+{
+  background: rgb(30, 144, 255);
+  color: white;
+}
+.removeRoute:focus
+{
+  outline: none;
+}
+
+.editLink
+{
+  color: rgb(30, 144, 255);
+}
+
+.editLink:hover
+{
+  text-transform: none;
+  color: rgb(30, 144, 255);
+}
+
+#membersList
+{
+  width: 80%;
+  box-shadow: 0 0 30px rgba(0,0, 0,.2);
+  padding: 50px;
+
+  border-radius: 10px;
+}
+
+.titleHR
+{
+  width: 60px;
+  height: 5px;
+  background: rgb(30, 144, 255);
+}
+
+.selectedRun
+{
+
+  padding: 0 !important;
+  border-left: 10px solid rgb(30, 144, 255);
+}
+
+.dateSection
+{
+  background: white;
+  padding: 50px;
+
+  box-shadow: 0 0 30px rgba(0,0, 0,.2);
+  border-radius: 10px;
+
+}
+
+
+
+.curSelected
+{
+  border-left: 10px solid rgb(30, 144, 255) !important;
+  box-shadow: 0 0 20px rgba(5,5, 5,.4);
+
+
+}
+
+.dateTitle
+{
+  font-weight:bold;
+  margin-bottom: 20px;
+}
+
+.postItem
+{
+  list-style: none;
+  border-left: 0px solid rgb(30, 144, 255);
+  transition: 0.3s;
+  float: left;
+  width: 30%;
+  margin-right: 1%;
+  background: rgb(240, 240, 240);
+  padding: 10px 5px;
+  margin-bottom: 7px;
+  border-color: rgb(30, 144, 255);
+
+}
+
+.postPfp
+{
+  width: 40px;
+  height: 40px;
+}
+
+#leftDay
+{
+    cursor: pointer;
+}
+
+#rightDay
+{
+    cursor: pointer;
+}
+
+.postItem:hover
+{
+  /* box-shadow: 0 0 15px rgba(5,5, 5,.4); */
+
+  background: rgb(230, 230, 230);
+}
+@keyframes ldio-wk1ytw9c5u {
+  0% { transform: translate(-50%,-50%) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg); }
+}
+.ldio-wk1ytw9c5u div {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 8px solid #d4d4d4;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+.ldio-wk1ytw9c5u div {
+  animation: ldio-wk1ytw9c5u 1.1904761904761905s linear infinite;
+  top: 50%;
+  left: 50%;
+}
+.loadingio-spinner-rolling-qg44w7ay85 {
+  width: 100%;
+  height: 200px;
+  display: block;
+  overflow: hidden;
+  background: rgba(241, 242, 243, 0);
+}
+.ldio-wk1ytw9c5u {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-wk1ytw9c5u div { box-sizing: content-box; }

@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login</title>
+  <link rel="icon"  type="image/ico"  href="./images/favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <link href = "style.css" rel = "stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/8d5f750f62.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+  <body class="" style = "background: url(./images/mcdonald.jpg) no-repeat center center fixed;margin: 0; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; width: 100%; height: 100%;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent" style = "padding-top: 0; padding-bottom: 0; position: absolute;">
+    <a class="navbar-brand" href="./index" style = "color: white; font-weight: bold; font-size: 50px">Team<i style = "color: white" class="fas fa-running"></i>Runs</a>
+    </nav>
+       <div style = "width: 100%; text-align: center;  ">
+           <div class = "formDiv">
+        <form class = "authForm" id="login-form">
+        <h4 class = "formTitle">Login</h4>
+        <div class="input-field" style = "width: 60%; margin-left: 20%;">
+          <label for="inp" class="inpdark" style = "margin-top: 20px">
+            <input autocomplete="off" type="email" id="login-email" placeholder="&nbsp;"/>
+            <span class="labeldark">Email</span>
+            <span class="focus-bgdark"></span>
+          </label>
+          <div class = "emailError error">Invalid Email</div>
+
+        </div>
+
+        <div class="input-field" style = "width: 60%; margin-left: 20%;">
+          <label for="inp" class="inpdark" style = "margin-top: 20px">
+            <input autocomplete="current-password" type="password" id="login-password" placeholder="&nbsp;"/>
+            <span class="labeldark">Password</span>
+            <span class="focus-bgdark"></span>
+          </label>
+          <div class = "passwordError error">Invalid Password</div>
+
+        </div>
+        <div class="" style = "width: 60%; margin-left: 20%; margin-top: 15px;">
+        <label style = "font-size: 12px; width: 100%; text-align: left;"for="policy">Don't have an account? <a href = "./signup">Signup</a>
+          </div>
+        <input class="formButton" type = "submit" value="Login">
+        </form>
+      </div>
+        </div>
+
+        <footer style = "width: 100%; height: 100px; background: black;">
+          <div  style = " text-align:center;padding-top: 20px;">
+              <p style = "width:100%; margin-bottom: 0; ">
+                <i style = "color: white;font-size: 36px; " class="fas fa-running"></i> <a href = "mailto:teamrunsexpansion@gmail.com"><i style = "color: white;font-size: 30px; margin: 5px; " class="fas fa-envelope"></i></a> <a href = "https://instagram.com/teamruns"><i style = "color: white;font-size: 30px; margin: 5px;" class="fab fa-instagram"></i></a></p>
+              <p style = "width:100%; margin-bottom: 0; color: white;">  &copy;TeamRuns 2020</p>
+
+          </div>
+        </footer>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-storage.js"></script>
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+
+  <script src="https://cdn.tutorialjinni.com/jquery-jcrop/2.0.4/js/Jcrop.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.tutorialjinni.com/jquery-jcrop/2.0.4/css/Jcrop.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+var firebaseConfig = {
+    apiKey: "AIzaSyCklyGxX8Yd3EwOvOdhuaagTN7sN-QhTH0",
+    authDomain: "studentapp-a6200.firebaseapp.com",
+    databaseURL: "https://studentapp-a6200.firebaseio.com",
+    projectId: "studentapp-a6200",
+    storageBucket: "studentapp-a6200.appspot.com",
+    messagingSenderId: "363683353062",
+    appId: "1:363683353062:web:0b5e8fc093528ad7"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+   // make auth and firestore references
+   const auth = firebase.auth();
+    const db = firebase.firestore();
+</script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/index.js"></script>
+  <script src="scripts/signup.js"></script>
+  <script src="scripts/login.js"></script>
+</body>
+</html>

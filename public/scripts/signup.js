@@ -83,21 +83,12 @@ authInputs.addEventListener("submit", function(e){
       .then(cred => {
         if(!(typeof cred == "undefined"))
         {
-          var isAdmin;
-          if(document.getElementById("opt1").checked)
-          {
-            isAdmin = true;
-          }
-          else {
-            isAdmin = false;
-          }
-          if(!isAdmin)
-          {
+          
+
             return db
               .collection("users")
               .doc(cred.user.uid)
               .set({
-                isAdmin:false,
                 isBanned: false,
                 isMod: false,
                 teamName: "",
@@ -105,42 +96,28 @@ authInputs.addEventListener("submit", function(e){
                 first: "",
                 last: "",
                 pfp: "./images/blankpfp.png"
+              }).then(() => {
+                if (!invalidEmail) {
+                  usersData.forEach(user => {
+                    if (user.id == userID.uid)
+                      curUser = user;
+                  });
+
+                  authInputs.reset();
+                  if (!curUser.data().isAdmin)
+                    document.querySelector("#teamNameDiv").style.display = "none";
+                  document.querySelector("#authForm").style.display = "none";
+                  document.querySelector("#infoForm").style.display = "block";
+                }
               });
-            }
-            return db
-              .collection("users")
-              .doc(cred.user.uid)
-              .set({
-                isAdmin:true,
-                isBanned: false,
-                isMod: false,
-                teamName: "",
-                teamCode: "",
-                first: "",
-                last: "",
-                pfp: "./images/blankpfp.png"
-              });
+            
         }
         else {
           authButton.innerHTML = `Next`
           invalidEmail = true;
         }
       })
-      .then(() => {
-        if(!invalidEmail)
-        {
-          usersData.forEach(user => {
-            if(user.id == userID.uid)
-              curUser = user;
-          });
-
-          authInputs.reset();
-          if(!curUser.data().isAdmin)
-            document.querySelector("#teamNameDiv").style.display = "none";
-          document.querySelector("#authForm").style.display = "none";
-          document.querySelector("#infoForm").style.display = "block";
-        }
-      });
+      
     }
     else {
       authButton.innerHTML = `Next`;
@@ -158,16 +135,34 @@ infoInputs.addEventListener("submit", function(e){
   var teamNameError = document.getElementsByClassName("teamNameError");
   var firstNameError = document.getElementsByClassName("firstNameError");
   var lastNameError = document.getElementsByClassName("lastNameError");
+  var typeError = document.getElementsByClassName("typeError");
+
 
   var first =  infoInputs["first-name"].value;
   var last = infoInputs["last-name"].value;
   var teamName = infoInputs["signup-teamName"].value;
 
   var isInvalid = false;
+  
+  
+  
   var errors = document.getElementsByClassName("error");
   for (var i = 0; i < errors.length; i++) {
     errors[i].style.display = "none";
   }
+
+  var isAdmin;
+  if (document.getElementById("opt1").checked) {
+    isAdmin = true;
+  }
+  else if (document.getElementById("opt2").checked) {
+    isAdmin = false;
+  }
+  else {
+    isInvalid = true;
+    typeError[0].style.display = "block";
+  }
+
   if(first == "")
   {
     isInvalid = true;
@@ -184,7 +179,7 @@ infoInputs.addEventListener("submit", function(e){
     lastinput.focus();
   }
 
-  if(teamName == "" && curUser.data().isAdmin)
+  if(teamName == "" && isAdmin)
   {
     isInvalid = true;
     teamNameError[0].style.display = "block";
@@ -220,10 +215,13 @@ infoInputs.addEventListener("submit", function(e){
         isMale = false;
       }
 
-      if(curUser.data().isAdmin)
+      
+
+      if(isAdmin)
       {
         db.collection("users").doc(curUser.id).update({
                 teamName: infoInputs["signup-teamName"].value,
+                isAdmin: isAdmin,
                 teamCode: teamCode,
                 first: infoInputs["first-name"].value,
                 last: infoInputs["last-name"].value,
@@ -246,6 +244,7 @@ infoInputs.addEventListener("submit", function(e){
       }
       else {
         db.collection("users").doc(curUser.id).update({
+                isAdmin: isAdmin,
                 first: infoInputs["first-name"].value,
                 last: infoInputs["last-name"].value,
                 isMale: isMale
@@ -318,17 +317,7 @@ setPfpInputs.addEventListener("submit", function(e){
     db.collection('users').doc(curUser.id).update({
       pfp: pfpUrl
     }).then(function(){
-      const actionCodeSettings = {
-            url: 'http://teamruns.com/dashboard',
-            handleCodeInApp: false
-          }
-      userID.sendEmailVerification(actionCodeSettings).then(function() {
-        document.querySelector("#setPfpForm").style.display = "none";
-        document.querySelector("#emailVerifyForm").style.display = "block";
-
-      }).catch(function(error) {
-        console.log(error);
-      });
+      window.location.href = "./dashboard";
 
 
     });
@@ -343,18 +332,7 @@ setPfpInputs.addEventListener("submit", function(e){
     db.collection('users').doc(curUser.id).update({
       pfp: pfpUrl
     }).then(function(){
-      const actionCodeSettings = {
-            url: 'http://teamruns.com/dashboard',
-            handleCodeInApp: false
-          }
-      userID.sendEmailVerification(actionCodeSettings).then(function() {
-        document.querySelector("#setPfpForm").style.display = "none";
-        document.querySelector("#emailVerifyForm").style.display = "block";
-
-      }).catch(function(error) {
-        console.log(error);
-      });
-
+      window.location.href = "./dashboard";
 
 
   });
@@ -401,6 +379,57 @@ setPfpInputs.addEventListener("submit", function(e){
               }
             });
           });
+
+var opt1 = document.querySelector("#opt1");
+var opt2 = document.querySelector("#opt2");
+opt1.addEventListener("click", () => {
+  document.querySelector("#teamNameDiv").style.display = "block";
+})
+opt2.addEventListener("click", () => {
+  document.querySelector("#teamNameDiv").style.display = "none";
+})
+
+
+
+function googleSignIn()
+{
+  var provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).then(function (result) {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    authInputs.reset();
+    document.querySelector("#authForm").style.display = "none";
+    document.querySelector("#infoForm").style.display = "block";
+    
+    var token = result.credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+
+    curUser = {id: user.uid};
+
+    db
+      .collection("users")
+      .doc(user.uid)
+      .set({
+        isBanned: false,
+        isMod: false,
+        teamName: "",
+        teamCode: "",
+        first: "",
+        last: "",
+        pfp: "./images/blankpfp.png"
+      });
+    // ...
+  }).catch(function (error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    // ...
+  });
+}
 
 
 

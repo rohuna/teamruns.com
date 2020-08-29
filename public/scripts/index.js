@@ -30,6 +30,8 @@ const setupUI = (user) => {
 
 $(document).ready(function() {
 
+  heroFades();
+
     $(window).scroll( function(){
       var $animation_elements = $('.fadein');
       var $animation_elements2 = $('.fadeup');
@@ -44,7 +46,7 @@ $(document).ready(function() {
         /* If the object is completely visible in the window, fade it it */
         if( bottom_of_window > bottom_of_element ){
 
-            $element.animate({'opacity':'1','margin-left':'0px'},1000);
+            $element.animate({'opacity':'1','margin-left':'0px'},750);
 
         }
       }
@@ -59,7 +61,7 @@ $(document).ready(function() {
         /* If the object is completely visible in the window, fade it it */
         if( bottom_of_window > bottom_of_element ){
 
-            $element.animate({'opacity':'1','margin-bottom':'0px'},1000);
+            $element.animate({'opacity':'1','margin-top':'0px'},750);
 
         }
       }
@@ -102,14 +104,22 @@ $(document).ready(function() {
       }
     }
 
-    if(window.innerWidth < 1200)
+    if(window.innerWidth < 700)
     {
       $(".outerBox").css("padding", "0");
+      $(".bottomBackground").css("display", "none");
+      $("#mobquote").css("display", "block");
+      $("#mobquote").css("margin-left", "10%");
+      $("#mobquote").css("margin-right", "10% !important");
+      $("#mobquote").css("width", "80%");
+      $(".centerContainer").css("height", "auto");
+      $("#mobquotetext").css("padding", "0");
       //$(".outerBox").css("margin", "auto");
       $(".outerBox").css("marginTop", "0");
       $(".outerBox").css("paddingBottom", "13vh");
-      $(".heroTagBox").css({
-    margin: "auto"});
+      $(".signupback").css("clip-path", "none");
+      $(".signupback").css("margin-top", "0");
+      $(".heroTagBox").css({margin: "auto"});
     $(".heroTagBox").css({height: "74vh"});
     $(".heroTagBox").css({width: "75%"});
     $(".homeimgside").css({
@@ -123,3 +133,21 @@ $(document).ready(function() {
     }
 
 });
+
+function heroFades(){
+  $('#tagLineTextText1').css('opacity', '0');
+  $('#tagLineText2').css('opacity', '0');
+  $('#tagLineText3').css('opacity', '0');
+  $('.tagText').css('opacity', '0');
+  $('.tagTitle').css('opacity', '1');
+  $('#tagLineText1').animate({ opacity: '1'}, 750);
+  setTimeout(() => {
+    $('#tagLineText2').animate({ opacity: '1' }, 750);
+  }, 750)
+  setTimeout(() => {
+    $('#tagLineText3').animate({ opacity: '1' }, 750);
+  }, 1500)
+  setTimeout(() => {
+    $('.tagtext').animate({ opacity: '1' }, 750);
+  }, 2250)
+}

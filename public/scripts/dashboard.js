@@ -12,6 +12,7 @@ var mchart;
 var pchart;
 var weekchart;
 var userTeamCode = "";
+var curUser;
 
 
 
@@ -92,8 +93,8 @@ $(document).ready(function() {
 function setPfp(){
 
   var pfpNav = document.getElementById("pfpNav");
-  db.collection('users').doc(userID.uid).get().then(curUser => {
-      pfpNav.src = curUser.data().pfp;
+  db.collection('users').doc(userID.uid).get().then(pfpUser => {
+      pfpNav.src = pfpUser.data().pfp;
   });
 
 //   db.collection('users').doc(userID.uid).get().then(doc => {
@@ -276,7 +277,8 @@ function setNavbarListeners() {
 	 postList = document.querySelector('.posts');
 	newRunButton.addEventListener("click", e=> {
 	  e.preventDefault();
-		window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
+    toggleNav();
     noPostsSection.style.display = "none";
 	  //set current date and time
 	  var currentdate = new Date();
@@ -361,9 +363,11 @@ function setNavbarListeners() {
 	});
 
 	teamActivity.addEventListener("click", e=> {
-	  e.preventDefault();
+    e.preventDefault();
+    
 	  if(!teamActivity.parentElement.classList.contains("active"))
 	  {
+      toggleNav();
 
 	    document.getElementById("dashPostsLoading").style.display = "block";
 	    teamActivity.parentElement.classList.add("active");
@@ -432,6 +436,7 @@ function setNavbarListeners() {
 
 	  if(!team.parentElement.classList.contains("active"))
 	  {
+      toggleNav();
 			window.scrollTo(0, 0);
 	    if(typeof postList.style != "undefined")
 	      postList.style.display = "none";
@@ -503,6 +508,7 @@ function setNavbarListeners() {
 	    postList.style.display = "none";
 	  if(!teamRoutes.parentElement.classList.contains("active"))
 	  {
+      toggleNav();
 			window.scrollTo(0, 0);
 
 	    teamRoutes.parentElement.classList.add("active");
@@ -561,6 +567,7 @@ function setNavbarListeners() {
 	    postList.style.display = "none";
 	  if(!summaryNav.parentElement.classList.contains("active"))
 	  {
+      toggleNav();
 			window.scrollTo(0, 0);
 	    summaryNav.parentElement.classList.add("active");
 	    if(teamActivity.parentElement.classList.contains("active"))
@@ -622,6 +629,7 @@ function setNavbarListeners() {
 	    postList.style.display = "none";
 	  if(!analysisNav.parentElement.classList.contains("active"))
 	  {
+      toggleNav();
 			window.scrollTo(0, 0);
 	    document.getElementById("dashPostsLoading").style.display = "block";
 	    analysisNav.parentElement.classList.add("active");
@@ -695,6 +703,7 @@ function setNavbarListeners() {
 	    postList.style.display = "none";
 	  if(!settingsNav.parentElement.classList.contains("active"))
 	  {
+      toggleNav();
 			window.scrollTo(0, 0);
 
 	    settingsNav.parentElement.classList.add("active");
@@ -757,6 +766,7 @@ function setNavbarListeners() {
 	    postList.style.display = "none";
 	  if(!watchNav.parentElement.classList.contains("active"))
 	  {
+      toggleNav();
 			window.scrollTo(0, 0);
 
 	    watchNav.parentElement.classList.add("active");
@@ -819,6 +829,7 @@ function setNavbarListeners() {
 	    postList.style.display = "none";
 	  if(!planNav.parentElement.classList.contains("active"))
 	  {
+      toggleNav();
 			window.scrollTo(0, 0);
 
 	    planNav.parentElement.classList.add("active");
@@ -881,6 +892,7 @@ function setNavbarListeners() {
 	    postList.style.display = "none";
 	  if(!homeNav.parentElement.classList.contains("active"))
 	  {
+      toggleNav();
       removeDisplayOfClass(".dashSections");
 			window.scrollTo(0, 0);
 
@@ -939,7 +951,7 @@ function setNavbarListeners() {
   });
   
   editRunButton.addEventListener("click", () => {
-
+    
     window.scrollTo(0, 0);
     if (typeof postList.style != "undefined")
       postList.style.display = "none";
@@ -2016,226 +2028,32 @@ $(".postItem").hover(function(){
 // setup posts
 const setupPosts = (data, user) => {
     postsData = data;
-    var teamPosts = [];
-    var teamRoutes = [];
+    
     //if(userTeamCode == "");
     //$("#sidebar-wrapper").css("display", "none");
-
-    db.collection('users').doc(userID.uid).get().then(curUser => {
-      userTeamCode = curUser.data().teamCode;
-			if(userTeamCode != "")
-			{
-        $("#sidebar-wrapper").css("display", "block");
-				$(".pageLink").css("display", "block");
-	      postsData.forEach(doc => {
-	        if(doc.data().teamCode == curUser.data().teamCode)
-	        {
-	          teamPosts.push(doc);
-	        }
-	      });
-	      routesData.forEach(doc => {
-	        if(doc.data().teamCode == curUser.data().teamCode)
-	        {
-	          teamRoutes.push(doc);
-	        }
-	      });
-	      routesData = teamRoutes;
-	      postsData = teamPosts;
-	      if(!curUser.data().isBanned)
-	      {
-	        setPosts(curUser);
-	      }
-	      else {
-	        document.querySelector("#dashPostsLoading").style.display = "none";
-	        document.querySelectorAll(".posts")[0].style.display = "block";
-	          document.querySelectorAll(".posts")[0].innerHTML = `
-	            <div class = "row" style = "display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70vh;">
-	            <div style = "width: 50%; background: rgb(230,230,230); padding: 100px;">
-	            <h1 style = "font-weight:bold; font-size: 50px;">Welcome ${curUser.data().first}!</h1>
-	            <h5 style = "margin-top: 25px; font-size: 30px;">You have been banned from your team. Please contact your Team Admin</h5>
-	            </div>
-	            </div>
-	              `;
-
-	      }
-			}
-			else {
-				var pfpN = document.getElementById("pfpNav");
-        pfpN.style.display = "inline-block";
-        $("#wrapper").css(
-          "background",
-          "linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%)"
-        );
-
-        
-        var joinTeamSection = document.getElementById("joinTeamSection");
-        joinTeamSection.style.padding = "0";
-        var banner = `
-        <div class = "joinContainer" style = "display: none; padding: 0 15%; ">
-					<div class = "row bannerDiv no-gutters boxShadow" style = " margin-right: 0 !important; border-radius: 20px; background: white; align-items: center; text-align: center; min-height: 70vh; margin-top:25px;">
-          <div class = "col-md-6">
-          <div class = "banner" style = " background: white; padding-left: 25px; width: 100%; border-radius: 20px;">
-					<h1 class = "bannerHead" style = "font-weight:bold; font-size: 50px;">Welcome ${
-            curUser.data().first
-          }!</h1>
-					<form id = "memberForm" novalidate style = "margin-left: 20%; width: 60%;">
-						<h1 style = "font-size: 36px;" class = "formTitle">Join your team:</h1>
-						<div class="input-field" id = "teamCodeField">
-								<label for="inp" class="inpdark" style = "margin-top: 20px">
-									<input autocomplete="off" type="text" for = "memberForm" id="teamcode" placeholder="&nbsp;">
-									<span class="labeldark">Team Code</span>
-									<span class="focus-bgdark"></span>
-								</label>
-								<div id = "teamCodeError" class = "error" style = "display: block"></div>
-								</div>
-						<button id = "teamCodeButton" type = "submit" class="formButton">Join</button>
-						<a style = "width: 100%; display: block" id = "newTeam">Create a new team?</a>
-					</form>
-          </div>
-          </div>
-          <div class = "col-md-6">
-            <img src = "../images/fitness.svg" style = "width: 80%;">
-          </div>
-          </div>
-          </div>
-						`;
-        joinTeamSection.innerHTML = banner;
-        
-				var dashPostsLoading = document.getElementById("dashPostsLoading");
-				dashPostsLoading.style.display = "none";
-				joinTeamSection.style.display = "block";
-        setTimeout(function () {
-
-            toggleOpacity(".joinContainer", ".bannerDiv", "block");
-        }, 100);
-				var newTeam = document.getElementById("newTeam");
-					newTeam.addEventListener("click", e => {
-					var memberForm = document.getElementById("memberForm");
-					memberForm.innerHTML = `<h1 style = "font-size: 36px;" class = "formTitle">Create Team:</h1>
-					<div class="input-field" id = "teamNameField">
-							<label for="inp" class="inpdark" style = "margin-top: 20px">
-								<input autocomplete="off" type="text" for = "memberForm" id="teamname" placeholder="&nbsp;">
-								<span class="labeldark">Team Name</span>
-								<span class="focus-bgdark"></span>
-							</label>
-							<div id = "teamNameError" class = "error" style = "display: block"></div>
-							</div>
-					<button id = "teamNameButton" type = "submit" class="formButton">Create</button>`;
-					memberForm.addEventListener("submit", e => {
-						e.preventDefault();
-					  document.getElementById('teamNameButton').style.backgroundColor = "rgb(150, 150, 150)";
-					  document.getElementById('teamNameButton').style.borderColor = "rgb(150, 150, 150)";
-						var currentTeam = "";
-						var teamName;
-						teamName = document.querySelector("#teamname").value.trim();
-
-						if(teamName == "")
-						{
-
-							document.getElementById('teamNameButton').style.borderColor = "rgb(30, 144, 255)";
-							document.getElementById('teamNameButton').style.backgroundColor = "rgb(30, 144, 255)";
-							document.querySelector("#teamNameError").innerHTML = `<p style = "color:red; height: 0;">Please enter a team name</p>`;
-						}
-						else {
-							var teamCode = '';
-				      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-				      var numbers = '0123456789';
-				      var charactersLength = characters.length;
-				      for ( var i = 0; i < 3; i++ ) {
-				         teamCode += characters.charAt(Math.floor(Math.random() * charactersLength));
-				      }
-				      for ( var i = 0; i < 1; i++ ) {
-				         teamCode += numbers.charAt(Math.floor(Math.random() * numbers.length));
-				      }
-							curUser.ref.update({
-									teamCode: teamCode,
-									teamName: teamName,
-									isAdmin: true
-								}).then( function(){
-									db.collection("teams")
-	                .add({
-	                    name: teamName,
-	                    teamCode: teamCode,
-	                    adminID: "",
-	                    members: []
-	                }).then(() => {
-										window.location.href = "./dashboard";
-										document.getElementById('teamNameButton').style.borderColor = "rgb(30, 144, 255)";
-									  document.getElementById('teamNameButton').style.backgroundColor = "rgb(30, 144, 255)";
-									})
-								});
-
-						}
+  if(curUser == null)
+  {
 
 
-
-					    // else {
-							// 	curUser.ref.update({
-							// 		teamCode: teamCode,
-							// 		teamName: currentTeam.name
-							// 	}).then( function(){
-							// 		window.location.href = "./dashboard";
-							// 		document.getElementById('teamCodeButton').style.borderColor = "rgb(30, 144, 255)";
-						  //     document.getElementById('teamCodeButton').style.backgroundColor = "rgb(30, 144, 255)";
-							//
-							// 	});
-							//
-							//
-					    // }
-
-
-					});
-				});
-
-				var memberForm = document.getElementById("memberForm");
-				memberForm.addEventListener("submit", e => {
-				  e.preventDefault();
-				  document.getElementById('teamCodeButton').style.backgroundColor = "rgb(150, 150, 150)";
-				  document.getElementById('teamCodeButton').style.borderColor = "rgb(150, 150, 150)";
-					var currentTeam = "";
-					var teamCode;
-					teamCode = document.querySelector("#teamcode").value.trim().toUpperCase();
-
-				    for (var i = 0; i < teamsData.length; i++) {
-				      if(teamsData[i].data().teamCode == teamCode)
-				      {
-
-				        currentTeam = teamsData[i].data();
-				      }
-
-				    }
-
-				    if(currentTeam == "")
-				    {
-
-				      document.getElementById('teamCodeButton').style.borderColor = "rgb(30, 144, 255)";
-				      document.getElementById('teamCodeButton').style.backgroundColor = "rgb(30, 144, 255)";
-				      document.querySelector("#teamCodeError").innerHTML = `<p style = "color:red; height: 0;">Please enter a valid team code</p>`;
-				    }
-				    else {
-							curUser.ref.update({
-								teamCode: teamCode,
-								teamName: currentTeam.name
-							}).then( function(){
-								window.location.href = "./dashboard";
-								document.getElementById('teamCodeButton').style.borderColor = "rgb(30, 144, 255)";
-					      document.getElementById('teamCodeButton').style.backgroundColor = "rgb(30, 144, 255)";
-
-							});
-
-
-				    }
-
-
-				});
-			}
-
+    db.collection('users').doc(userID.uid).get().then(thisUser => {
+      
+      curUser = thisUser;
+      
+      handleInitialLoad();
+      
     });
+
+  }
+  else
+  {
+    handleInitialLoad();
+  }
+  
 };
 
 var postsByDate = [];
 
-function setPosts(curUser){
+function setPosts(){
 
 
 
@@ -4176,6 +3994,7 @@ function setPosts(curUser){
 							curUser.ref.update({
 								teamCode: ""
 							}).then(function(){
+                createCookie("teamCode", "", 365);
 								window.location.href = window.location.href;
 							});
 						}
@@ -4188,13 +4007,13 @@ function setPosts(curUser){
 									user.ref.update({
 										teamCode: "",
 										isAdmin: false
-									})
+                  }).then(function () {
+                    createCookie("teamCode", "", 365);
+                    window.location.href = window.location.href;
+                  });
 								}
 							})
-							setTimeout(function () {
-
-								window.location.href = window.location.href;
-							}, 3000);
+							
 						}
 
 
@@ -6539,4 +6358,248 @@ function getPostsByDate(gender)
 
   });
   return postsByDate;
+}
+
+
+function createCookie(name, value, days) {
+  var expires;
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toGMTString();
+  }
+  else {
+    expires = "";
+  }
+  document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function getCookie(c_name) {
+  if (document.cookie.length > 0) {
+    c_start = document.cookie.indexOf(c_name + "=");
+    if (c_start != -1) {
+      c_start = c_start + c_name.length + 1;
+      c_end = document.cookie.indexOf(";", c_start);
+      if (c_end == -1) {
+        c_end = document.cookie.length;
+      }
+      return unescape(document.cookie.substring(c_start, c_end));
+    }
+    return "";
+  }
+  return "";
+}
+
+function handleInitialLoad()
+{
+  var teamPosts = [];
+  var teamRoutes = [];
+  userTeamCode = curUser.data().teamCode;
+  if (getCookie("teamCode") != userTeamCode) createCookie("teamCode", userTeamCode, 365);
+
+  console.timeEnd('a');
+  if (userTeamCode != "") {
+    $("#sidebar-wrapper").css("display", "block");
+    $(".pageLink").css("display", "block");
+    postsData.forEach(doc => {
+      if (doc.data().teamCode == curUser.data().teamCode) {
+        teamPosts.push(doc);
+      }
+    });
+    routesData.forEach(doc => {
+      if (doc.data().teamCode == curUser.data().teamCode) {
+        teamRoutes.push(doc);
+      }
+    });
+    routesData = teamRoutes;
+    postsData = teamPosts;
+    if (!curUser.data().isBanned) {
+      setPosts();
+    }
+    else {
+      document.querySelector("#dashPostsLoading").style.display = "none";
+      document.querySelectorAll(".posts")[0].style.display = "block";
+      document.querySelectorAll(".posts")[0].innerHTML = `
+	            <div class = "row" style = "display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70vh;">
+	            <div style = "width: 50%; background: rgb(230,230,230); padding: 100px;">
+	            <h1 style = "font-weight:bold; font-size: 50px;">Welcome ${curUser.data().first}!</h1>
+	            <h5 style = "margin-top: 25px; font-size: 30px;">You have been banned from your team. Please contact your Team Admin</h5>
+	            </div>
+	            </div>
+	              `;
+
+    }
+  }
+  else {
+    var pfpN = document.getElementById("pfpNav");
+    pfpN.style.display = "inline-block";
+    $("#wrapper").css(
+      "background",
+      "linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%)"
+    );
+
+
+    var joinTeamSection = document.getElementById("joinTeamSection");
+    joinTeamSection.style.padding = "0";
+    var banner = `
+        <div class = "joinContainer" style = "display: none; padding: 0 15%; ">
+					<div class = "row bannerDiv no-gutters boxShadow" style = " margin-right: 0 !important; border-radius: 20px; background: white; align-items: center; text-align: center; min-height: 70vh; margin-top:25px;">
+          <div class = "col-md-6">
+          <div class = "banner" style = " background: white; padding-left: 25px; width: 100%; border-radius: 20px;">
+					<h1 class = "bannerHead" style = "font-weight:bold; font-size: 50px;">Welcome ${
+      curUser.data().first
+      }!</h1>
+					<form id = "memberForm" novalidate style = "margin-left: 20%; width: 60%;">
+						<h1 style = "font-size: 36px;" class = "formTitle">Join your team:</h1>
+						<div class="input-field" id = "teamCodeField">
+								<label for="inp" class="inpdark" style = "margin-top: 20px">
+									<input autocomplete="off" type="text" for = "memberForm" id="teamcode" placeholder="&nbsp;">
+									<span class="labeldark">Team Code</span>
+									<span class="focus-bgdark"></span>
+								</label>
+								<div id = "teamCodeError" class = "error" style = "display: block"></div>
+								</div>
+						<button id = "teamCodeButton" type = "submit" class="formButton">Join</button>
+						<a style = "width: 100%; display: block" id = "newTeam">Create a new team?</a>
+					</form>
+          </div>
+          </div>
+          <div class = "col-md-6">
+            <img src = "../images/fitness.svg" style = "width: 80%;">
+          </div>
+          </div>
+          </div>
+						`;
+    joinTeamSection.innerHTML = banner;
+
+    var dashPostsLoading = document.getElementById("dashPostsLoading");
+    dashPostsLoading.style.display = "none";
+    joinTeamSection.style.display = "block";
+    setTimeout(function () {
+
+      toggleOpacity(".joinContainer", ".bannerDiv", "block");
+    }, 100);
+    var newTeam = document.getElementById("newTeam");
+    newTeam.addEventListener("click", e => {
+      var memberForm = document.getElementById("memberForm");
+      memberForm.innerHTML = `<h1 style = "font-size: 36px;" class = "formTitle">Create Team:</h1>
+					<div class="input-field" id = "teamNameField">
+							<label for="inp" class="inpdark" style = "margin-top: 20px">
+								<input autocomplete="off" type="text" for = "memberForm" id="teamname" placeholder="&nbsp;">
+								<span class="labeldark">Team Name</span>
+								<span class="focus-bgdark"></span>
+							</label>
+							<div id = "teamNameError" class = "error" style = "display: block"></div>
+							</div>
+					<button id = "teamNameButton" type = "submit" class="formButton">Create</button>`;
+      memberForm.addEventListener("submit", e => {
+        e.preventDefault();
+        document.getElementById('teamNameButton').style.backgroundColor = "rgb(150, 150, 150)";
+        document.getElementById('teamNameButton').style.borderColor = "rgb(150, 150, 150)";
+        var currentTeam = "";
+        var teamName;
+        teamName = document.querySelector("#teamname").value.trim();
+
+        if (teamName == "") {
+
+          document.getElementById('teamNameButton').style.borderColor = "rgb(30, 144, 255)";
+          document.getElementById('teamNameButton').style.backgroundColor = "rgb(30, 144, 255)";
+          document.querySelector("#teamNameError").innerHTML = `<p style = "color:red; height: 0;">Please enter a team name</p>`;
+        }
+        else {
+          var teamCode = '';
+          var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+          var numbers = '0123456789';
+          var charactersLength = characters.length;
+          for (var i = 0; i < 3; i++) {
+            teamCode += characters.charAt(Math.floor(Math.random() * charactersLength));
+          }
+          for (var i = 0; i < 1; i++) {
+            teamCode += numbers.charAt(Math.floor(Math.random() * numbers.length));
+          }
+          curUser.ref.update({
+            teamCode: teamCode,
+            teamName: teamName,
+            isAdmin: true
+          }).then(function () {
+            db.collection("teams")
+              .add({
+                name: teamName,
+                teamCode: teamCode,
+                adminID: "",
+                members: []
+              }).then(() => {
+                window.location.href = "./dashboard";
+                document.getElementById('teamNameButton').style.borderColor = "rgb(30, 144, 255)";
+                document.getElementById('teamNameButton').style.backgroundColor = "rgb(30, 144, 255)";
+              })
+          });
+
+        }
+
+
+
+        // else {
+        // 	curUser.ref.update({
+        // 		teamCode: teamCode,
+        // 		teamName: currentTeam.name
+        // 	}).then( function(){
+        // 		window.location.href = "./dashboard";
+        // 		document.getElementById('teamCodeButton').style.borderColor = "rgb(30, 144, 255)";
+        //     document.getElementById('teamCodeButton').style.backgroundColor = "rgb(30, 144, 255)";
+        //
+        // 	});
+        //
+        //
+        // }
+
+
+      });
+    });
+
+    var memberForm = document.getElementById("memberForm");
+    memberForm.addEventListener("submit", e => {
+      e.preventDefault();
+      document.getElementById('teamCodeButton').style.backgroundColor = "rgb(150, 150, 150)";
+      document.getElementById('teamCodeButton').style.borderColor = "rgb(150, 150, 150)";
+      var currentTeam = "";
+      var teamCode;
+      teamCode = document.querySelector("#teamcode").value.trim().toUpperCase();
+
+      for (var i = 0; i < teamsData.length; i++) {
+        if (teamsData[i].data().teamCode == teamCode) {
+
+          currentTeam = teamsData[i].data();
+        }
+
+      }
+
+      if (currentTeam == "") {
+
+        document.getElementById('teamCodeButton').style.borderColor = "rgb(30, 144, 255)";
+        document.getElementById('teamCodeButton').style.backgroundColor = "rgb(30, 144, 255)";
+        document.querySelector("#teamCodeError").innerHTML = `<p style = "color:red; height: 0;">Please enter a valid team code</p>`;
+      }
+      else {
+        curUser.ref.update({
+          teamCode: teamCode,
+          teamName: currentTeam.name
+        }).then(function () {
+          window.location.href = "./dashboard";
+          document.getElementById('teamCodeButton').style.borderColor = "rgb(30, 144, 255)";
+          document.getElementById('teamCodeButton').style.backgroundColor = "rgb(30, 144, 255)";
+
+        });
+
+
+      }
+
+
+    });
+  }
+}
+
+function toggleNav()
+{
+  document.querySelectorAll(".navbar-toggler")[0].click();
 }

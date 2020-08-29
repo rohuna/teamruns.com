@@ -1,187 +1,214 @@
-  <html lang="en">
+<html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Signup</title>
-  <link rel="icon"  type="image/ico"  href="./images/favicon.ico">
+  <link rel="icon" type="image/ico" href="./images/favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
-  <link href = "style.css" rel = "stylesheet">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/8d5f750f62.js" crossorigin="anonymous"></script>
 
 </head>
-<body class="" style = "background: url(./images/preclassic.JPG) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; width: 100%; height: 100%;">
-  <nav class="navbar navbar-expand-lg navbar-light bg-transparent" style = "padding-top: 0; padding-bottom: 0; position: absolute;">
-  <a class="navbar-brand" href="./index" style = "color: white; font-weight: bold; font-size: 50px">Team<i style = "color: white" class="fas fa-running"></i>Runs</a>
+
+<body class="" style="background: url(./images/preclassic.JPG) no-repeat center center fixed; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; width: 100%; height: 100%;">
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent" style="padding-top: 0; padding-bottom: 0; position: absolute;">
+    <a class="navbar-brand" href="./index" style="color: white; font-weight: bold; font-size: 50px">Team<i style="color: white"
+        class="fas fa-running"></i>Runs</a>
   </nav>
 
-<div class = "formDiv">
-<div id = "signupForm">
-  <h4 class = "formTitle">Sign up</h4>
-  <div id = "authForm">
-  <form id = "authInputs">
-    <div class="input-field" style = "width: 60%; margin-left: 20%;">
-      <label for="inp" class="inpdark" style = "margin-top: 20px">
-        <input autocomplete="off" type="email" id="signup-email" placeholder="&nbsp;"/>
-        <span class="labeldark">Email</span>
-        <span class="focus-bgdark"></span>
-      </label>
-      <div class = "emailError error">Invalid Email</div>
+  <div class="formDiv">
+    <div id="signupForm">
+      <h4 class="formTitle">Sign up</h4>
+      <div id="authForm">
+        <form id="authInputs">
+          <div class="input-field" style="width: 60%; margin-left: 20%;">
+            <label for="inp" class="inpdark" style="margin-top: 20px">
+              <input autocomplete="off" type="email" id="signup-email" placeholder="&nbsp;" />
+              <span class="labeldark">Email</span>
+              <span class="focus-bgdark"></span>
+            </label>
+            <div class="emailError error">Invalid Email</div>
 
-    </div>
+          </div>
 
-    <div class="input-field" style = "width: 60%; margin-left: 20%;">
-      <label for="inp" class="inpdark" style = "margin-top: 20px">
-        <input autocomplete="off" type="password" id="signup-password" placeholder="&nbsp;"/>
-        <span class="labeldark">Password</span>
-        <span class="focus-bgdark"></span>
-      </label>
-      <div class = "passwordError error">Please enter a password with at least 8 characters</div>
+          <div class="input-field" style="width: 60%; margin-left: 20%;">
+            <label for="inp" class="inpdark" style="margin-top: 20px">
+              <input autocomplete="off" type="password" id="signup-password" placeholder="&nbsp;" />
+              <span class="labeldark">Password</span>
+              <span class="focus-bgdark"></span>
+            </label>
+            <div class="passwordError error">Please enter a password with at least 8 characters</div>
 
-    </div>
+          </div>
 
-    <div class="input-field" style = "width: 60%; margin-left: 20%;">
-      <label for="inp" class="inpdark" style = "margin-top: 20px">
-        <input autocomplete="off" type="password" id="signup-confirmpassword" placeholder="&nbsp;"/>
-        <span class="labeldark">Confirm Password</span>
-        <span class="focus-bgdark"></span>
-      </label>
-      <div class = "confirmPasswordError error">Your confirmation password does not match</div>
-    </div>
-    <div class="input-field" style = "width: 60%; margin-left: 20%;text-align: left; margin-top: 20px">
-      <div style = "width: 100%;">Type of Account:</div>
-      <label for="opt1" class="radio">
-          <input type="radio" name="rdo" id="opt1" class="hidden"/>
-          <span class="label"></span><span style = "font-size: 16px">Team Admin<span style = "display: block; font-size: 12px; margin-left: 30px;">Create and manage a new team</span></span>
+          <div class="input-field" style="width: 60%; margin-left: 20%;">
+            <label for="inp" class="inpdark" style="margin-top: 20px">
+              <input autocomplete="off" type="password" id="signup-confirmpassword" placeholder="&nbsp;" />
+              <span class="labeldark">Confirm Password</span>
+              <span class="focus-bgdark"></span>
+            </label>
+            <div class="confirmPasswordError error">Your confirmation password does not match</div>
+          </div>
 
-        </label>
 
-        <label for="opt2" class="radio">
-          <input type="radio" name="rdo" id="opt2" class="hidden" checked/>
-          <span class="label"></span><span style = "font-size: 16px">Member<span style = "display: block; font-size: 12px; margin-left: 30px;">Use a team code to join a pre-existing team</span></span>
-        </label>
 
-    </div>
 
-    <div class="" style = "width: 60%; margin-left: 20%; margin-top: 15px;">
-    <label style = "font-size: 12px; width: 90%; text-align: left;"for="policy">By signing up, you have read and agree to our <a href = "./policy">Privacy Policy</a> and <a href = "./policy">Terms of Services</a>. <br>Already have an account? <a href = "./login">Login</a>
+          <div class="" style="width: 60%; margin-left: 20%; margin-top: 15px;">
+            <label style="font-size: 12px; width: 90%; text-align: left;" for="policy">By signing up, you have read and
+              agree to our <a href="./policy">Privacy Policy</a> and <a href="./policy">Terms of Services</a>. <br>Already
+              have an account? <a href="./login">Login</a>
+          </div>
+
+          <button id="authButton" type="submit" class="formButton" style="width: 60%; margin-bottom: 15px;">Signup</button>
+          <p>or</p>
+          <div class="input-field  " style=" margin-top: 15px;  margin-bottom: 30px; ">
+            <div class="googleSignUp linkHover" onclick="googleSignIn()" style="text-transform:none;">
+              <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google Signup" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+              Sign up with Google
+            </div>
+          </div>
+        </form>
       </div>
 
-    <button id = "authButton" type = "submit" class="formButton">Next</button>
+      <div id="infoForm">
+        <form id="infoInputs">
+          <div class="input-field" style="width: 60%; margin-left: 20%;text-align: left; margin-top: 20px">
+            <div style="width: 100%;">Type of Account:</div>
+            <label for="opt1" class="radio">
+              <input type="radio" name="rdotype" id="opt1" class="hidden" />
+              <span class="label"></span><span style="font-size: 16px">Team Admin<span style="display: block; font-size: 12px; margin-left: 30px;">Create
+                  and manage a new team</span></span>
+
+            </label>
+
+            <label for="opt2" class="radio">
+              <input type="radio" name="rdotype" id="opt2" class="hidden" />
+              <span class="label"></span><span style="font-size: 16px">Member<span style="display: block; font-size: 12px; margin-left: 30px;">Use
+                  a team code to join a pre-existing team</span></span>
+            </label>
+            <div class="typeError error">Please select an account type</div>
+
+
+          </div>
+          <div id="firstNameDiv" class="input-field" style="width: 60%; margin-left: 20%;">
+            <label for="inp" class="inpdark" style="margin-top: 20px">
+              <input autocomplete="off" type="text" id="first-name" placeholder="&nbsp;" />
+              <span class="labeldark">First Name</span>
+              <span class="focus-bgdark"></span>
+            </label>
+            <div class="firstNameError error">Please enter a first name</div>
+
+          </div>
+          <div id="lastNameDiv" class="input-field" style="width: 60%; margin-left: 20%;">
+            <label for="inp" class="inpdark" style="margin-top: 20px">
+              <input autocomplete="off" type="text" id="last-name" placeholder="&nbsp;" />
+              <span class="labeldark">Last Name</span>
+              <span class="focus-bgdark"></span>
+            </label>
+            <div class="lastNameError error">Please enter a last name</div>
+
+          </div>
+
+
+          <div id="teamNameDiv" class="input-field" style="width: 60%; margin-left: 20%; display: none;">
+            <label for="inp" class="inpdark" style="margin-top: 20px">
+              <input autocomplete="off" type="text" id="signup-teamName" placeholder="&nbsp;" />
+              <span class="labeldark">Team Name</span>
+              <span class="focus-bgdark"></span>
+            </label>
+            <div class="teamNameError error">Please enter a team name</div>
+
+          </div>
+          <div class="input-field" style="width: 60%; margin-left: 20%;text-align: left; margin-top: 20px">
+            Gender:
+            <label for="male" class="radio" style="width: 100%">
+              <input type="radio" name="rdo" id="male" class="hidden" checked />
+              <span class="label"></span><span style="font-size: 16px">Male</span>
+            </label>
+
+            <label for="female" class="radio" style="width: 100%">
+              <input type="radio" name="rdo" id="female" class="hidden" />
+              <span class="label"></span><span style="font-size: 16px">Female</span>
+            </label>
+
+          </div>
+
+
+          <button id="infoButton" type="submit" class="formButton" style="width: 60%;">Next</button>
+        </form>
+      </div>
+
+      <div id="setPfpForm">
+        <form id="setPfpInputs">
+          <div class="input-field">
+            <div class="row">
+              <div class="col-sm">
+                <p style="font-size: 20px" for="pfpButton">Upload a Profile Picture:</p>
+              </div>
+              <div class="col-sm" id="pfpButtonDiv" style="margin-top: 10px;">
+                <input autocomplete="off" accept="image/*" type=file value="upload" style="float:left;  border: none; background: white; display: none"
+                  id="pfpButton" />
+                <label for="pfpButton" style="font-size: 18px; background: rgb(230, 230, 230); box-shadow: 0 0 15px rgba(5,5, 5,.4); color: black; padding: 10px; cursor: pointer">
+                  <i class="fas fa-file-image"></i> Upload Image
+                </label>
+              </div>
+            </div>
+            <div style="display: none; text-align: center;" id="pfpSubmitLoading" class="loadingio-spinner-rolling-qg44w7ay85">
+              <div class="ldio-wk1ytw9c5u">
+                <div></div>
+              </div>
+            </div>
+            <div id="pfpdiv" style="text-align: center; display: none;">
+              <div id="imgCon">
+                <div class="row">
+                  <div class="col-sm">
+                    <div id="picselect">
+
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <div>
+                      <p style="font-size: 20px" class="margin-bottom: 20px;" style="text-align: left!important">Preview:</p>
+                      <canvas id="preview" style="width:150px;height:150px;overflow:hidden; border-radius: 50%"></canvas>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+            <button id="setPfpButton" type="submit" class="formButton" style="width: 60%;">Next</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="emailVerifyForm">
+      <form id="emailVerifyInputs">
+        <div class="row" style="width: 60%; margin-left: 20%;">
+          <h1 style="font-size: 24px; font-weight: bold;">We sent you an email to verify your account, please click the
+            link in the email before continuing.</h1>
+        </div>
+
+        <div class="row" style="justify-content: center">
+
+          <p class="error emailVerified" style="width: 100%; margin: 0">Please verify your email by using the link sent
+            to your inbox.</p>
+          <button id="emailVerifyButton" type="submit" class="formButton">Start</button>
+
+        </div>
+    </div>
     </form>
+
+  </div>
   </div>
 
-  <div id = "infoForm">
-    <form id = "infoInputs">
-    <div id = "firstNameDiv" class="input-field" style = "width: 60%; margin-left: 20%;">
-      <label for="inp" class="inpdark" style = "margin-top: 20px">
-        <input autocomplete="off" type="text" id="first-name" placeholder="&nbsp;"/>
-        <span class="labeldark">First Name</span>
-        <span class="focus-bgdark"></span>
-      </label>
-      <div class = "firstNameError error">Please enter a first name</div>
 
-    </div>
-    <div id = "lastNameDiv" class="input-field" style = "width: 60%; margin-left: 20%;">
-      <label for="inp" class="inpdark" style = "margin-top: 20px">
-        <input autocomplete="off" type="text" id="last-name" placeholder="&nbsp;"/>
-        <span class="labeldark">Last Name</span>
-        <span class="focus-bgdark"></span>
-      </label>
-      <div class = "lastNameError error">Please enter a last name</div>
-
-    </div>
-    <div id = "teamNameDiv" class="input-field" style = "width: 60%; margin-left: 20%;">
-      <label for="inp" class="inpdark" style = "margin-top: 20px">
-        <input autocomplete="off" type="text" id="signup-teamName" placeholder="&nbsp;"/>
-        <span class="labeldark">Team Name</span>
-        <span class="focus-bgdark"></span>
-      </label>
-      <div class = "teamNameError error">Please enter a team name</div>
-
-    </div>
-    <div class="input-field" style = "width: 60%; margin-left: 20%;text-align: left; margin-top: 20px">
-      Gender:
-      <label for="male" class="radio" style = "width: 100%">
-          <input type="radio" name="rdo" id="male" class="hidden" checked/>
-          <span class="label"></span><span style = "font-size: 16px">Male</span>
-        </label>
-
-        <label for="female" class="radio" style = "width: 100%">
-          <input type="radio" name="rdo" id="female" class="hidden"/>
-          <span class="label"></span><span style = "font-size: 16px">Female</span>
-        </label>
-
-    </div>
-
-
-    <button id = "infoButton" type = "submit" class="formButton">Next</button>
-  </form>
-  </div>
-
-  <div id = "setPfpForm">
-    <form id = "setPfpInputs">
-    <div class="input-field">
-      <div class = "row">
-        <div class = "col-sm" >
-        <p style= "font-size: 20px" for="pfpButton">Upload a Profile Picture:</p>
-        </div>
-        <div class = "col-sm" id ="pfpButtonDiv" style = "margin-top: 10px;">
-        <input autocomplete="off" accept="image/*" type = file value = "upload" style = "float:left;  border: none; background: white; display: none" id = "pfpButton"/>
-        <label for = "pfpButton" style = "font-size: 18px; background: rgb(230, 230, 230); box-shadow: 0 0 15px rgba(5,5, 5,.4); color: black; padding: 10px; cursor: pointer">
-          <i class="fas fa-file-image"></i> Upload Image
-        </label>
-      </div>
-    </div>
-    <div style = "display: none; text-align: center;" id = "pfpSubmitLoading"class="loadingio-spinner-rolling-qg44w7ay85"><div class="ldio-wk1ytw9c5u">
-      <div></div>
-    </div></div>
-    <div id = "pfpdiv" style = "text-align: center; display: none;">
-      <div id="imgCon">
-        <div class = "row">
-          <div class = "col-sm">
-            <div id = "picselect">
-
-            </div>
-          </div>
-          <div class = "col-sm">
-            <div>
-            <p style= "font-size: 20px" class = "margin-bottom: 20px;"style = "text-align: left!important">Preview:</p>
-            <canvas id="preview" style="width:150px;height:150px;overflow:hidden; border-radius: 50%"></canvas>
-            </div>
-          </div>
-        </div>
-
-
-
-      </div>
-    </div>
-    <button id = "setPfpButton" type = "submit" class="formButton">Next</button>
-  </form>
-  </div>
-</div>
-
-  <div id = "emailVerifyForm">
-    <form id = "emailVerifyInputs">
-    <div class = "row" style = "width: 60%; margin-left: 20%;">
-    <h1 style = "font-size: 24px; font-weight: bold;">We sent you an email to verify your account, please click the link in the email before continuing.</h1>
-    </div>
-
-    <div class = "row" style = "justify-content: center">
-
-    <p class = "error emailVerified" style = "width: 100%; margin: 0">Please verify your email by using the link sent to your inbox.</p>
-    <button id = "emailVerifyButton" type = "submit" class="formButton">Start</button>
-
-    </div>
-  </div>
-</form>
-
-</div>
-</div>
-
-
-        <!-- <div  id = "choosePath" style = "width: 80%; margin-left: 10%; margin-right: 10%; height: 100%;  text-align: center;">
+  <!-- <div  id = "choosePath" style = "width: 80%; margin-left: 10%; margin-right: 10%; height: 100%;  text-align: center;">
           <div class = "row" style = "height: 100%;display: flex; align-items: center;">
             <div class="col-sm" >
               <form id = "adminForm" novalidate>
@@ -210,7 +237,7 @@
 
 
 
-        <!-- <div id = "signinForm" style = "width: 100%; text-align: center; display: none;">
+  <!-- <div id = "signinForm" style = "width: 100%; text-align: center; display: none;">
           <div class = "formDiv">
     <form style = "" class = "authForm" id="signup-form" novalidate>
      <h4 class = "formTitle">Sign up</h4><br />
@@ -223,7 +250,7 @@
       <div id = "form-display"> -->
 
 
-            <!-- <div class="">
+  <!-- <div class="">
                 <div>
                         <label class = "formLabel" style = "width: 50%; float: left" for="signup-student" >I am a student</label>
                         <input id = "studentbutton" type="radio" style = "width: 50%;" name  = "type" value = "student" id="signup-student" required />
@@ -235,10 +262,10 @@
 
 
             </div> -->
-            <!-- <button class = "formButton" type = "button"  id = "nextform">Next</button>
+  <!-- <button class = "formButton" type = "button"  id = "nextform">Next</button>
         </div>
         <div id = "student-form" style = "display: none;"> -->
-<!--
+  <!--
                     <div id = "firstNameDiv" class="input-field" style = "width: 60%; margin-left: 20%;">
                       <label for="inp" class="inpdark" style = "margin-top: 20px">
                         <input autocomplete="off" type="text" id="first-name" placeholder="&nbsp;"/>
@@ -257,7 +284,7 @@
                       <div class = "lastNameError error">Please enter a last name</div>
 
                     </div> -->
-                <!-- <div id = "gradYearDiv" class="input-field" style = "width: 60%; margin-left: 20%;">
+  <!-- <div id = "gradYearDiv" class="input-field" style = "width: 60%; margin-left: 20%;">
                   <label for="inp" class="inpdark" style = "margin-top: 20px">
                     <input autocomplete="off" type="number" id="signup-gradyear" placeholder="&nbsp;"/>
                     <span class="labeldark">Graduation Year</span>
@@ -267,7 +294,7 @@
 
                 </div> -->
 
-                <!-- <div id = "teamNameDiv" class="input-field" style = "width: 60%; margin-left: 20%;">
+  <!-- <div id = "teamNameDiv" class="input-field" style = "width: 60%; margin-left: 20%;">
                   <label for="inp" class="inpdark" style = "margin-top: 20px">
                     <input autocomplete="off" type="text" id="signup-teamName" placeholder="&nbsp;"/>
                     <span class="labeldark">Team Name</span>
@@ -317,7 +344,7 @@
               <button id = "submitButton" class="formButton">Submit</button>
 
             </div> -->
-            <!-- <div id = "employer-form" style = "display: none;">
+  <!-- <div id = "employer-form" style = "display: none;">
                 <div class="input-field">
                         <label class = "formLabel" for="signup-email">First Name</label>
                     <input type="text" id="first-name" required />
@@ -340,44 +367,47 @@
                 </div>
                 <button class="formButton">Sign up</button>
             </div> -->
-    <!-- </form>
+  <!-- </form>
   </div>
     </div> -->
 
-    <footer style = "width: 100%; height: 100px; background: black;">
-      <div  style = " text-align:center;padding-top: 20px;">
-          <p style = "width:100%; margin-bottom: 0; ">
-            <i style = "color: white;font-size: 36px; " class="fas fa-running"></i> <a href = "mailto:teamrunsexpansion@gmail.com"><i style = "color: white;font-size: 30px; margin: 5px; " class="fas fa-envelope"></i></a> <a href = "https://instagram.com/teamruns"><i style = "color: white;font-size: 30px; margin: 5px;" class="fab fa-instagram"></i></a></p>
-          <p style = "width:100%; margin-bottom: 0; color: white;">  &copy;TeamRuns 2020</p>
+  <footer style="width: 100%; height: 170px; background: black;">
+    <div style=" text-align:center;padding-top: 40px;">
+      <p style="width:100%; margin-bottom: 0; ">
+        <a href="https://www.facebook.com/TeamRuns/" class="fa footericon fa-facebook"></a>
+        <a href="https://instagram.com/teamruns" class="fa footericon fa-instagram"></a>
+        <a href="mailto:support@teamruns.com" class="far footericon fa-envelope"></a>
+      </p>
+      <p style="width:100%; margin: 25px 0; color: white;"> &copy; TeamRuns 2020</p>
+    </div>
+  </footer>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-storage.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
 
-      </div>
-    </footer>
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-auth.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-firestore.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/6.3.5/firebase-storage.js"></script>
-      <script src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-
-<script src="https://cdn.tutorialjinni.com/jquery-jcrop/2.0.4/js/Jcrop.js"></script>
+  <script src="https://cdn.tutorialjinni.com/jquery-jcrop/2.0.4/js/Jcrop.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.tutorialjinni.com/jquery-jcrop/2.0.4/css/Jcrop.css" />
-  <script src = "https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"> </script>
-  <link rel="stylesheet" type="text/css" src = "https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"> </script>
+  <link rel="stylesheet" type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.css" />
 
-  <script src="scripts/rcrop.min.js" ></script>
-<link href="scripts/rcrop.min.css" rel="stylesheet">
+  <script src="scripts/rcrop.min.js"></script>
+  <link href="scripts/rcrop.min.css" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!-- TODO: Add SDKs for Firebase products that you want to use
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#config-web-app -->
-<!-- Initialize Firebase -->
+  <!-- Initialize Firebase -->
 
-<script>
-  // Your web app's Firebase configuration
-var firebaseConfig = {
+  <script>
+    // Your web app's Firebase configuration
+  var firebaseConfig = {
     apiKey: "AIzaSyCklyGxX8Yd3EwOvOdhuaagTN7sN-QhTH0",
     authDomain: "studentapp-a6200.firebaseapp.com",
     databaseURL: "https://studentapp-a6200.firebaseio.com",
@@ -386,13 +416,15 @@ var firebaseConfig = {
     messagingSenderId: "363683353062",
     appId: "1:363683353062:web:0b5e8fc093528ad7"
   };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-   // make auth and firestore references
-   const auth = firebase.auth();
+    // make auth and firestore references
+    const auth = firebase.auth();
     const db = firebase.firestore();
-</script>
+  </script>
+
+
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="scripts/auth.js"></script>
@@ -400,4 +432,5 @@ var firebaseConfig = {
   <script src="scripts/signup.js"></script>
   <script src="scripts/login.js"></script>
 </body>
+
 </html>

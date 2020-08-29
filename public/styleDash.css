@@ -74,9 +74,9 @@
     border-color: #83b566;
     box-shadow: 0 0 0 0.2rem rgba(131, 181, 102, 0.25);
 }
-.btn:hover {
+/* .btn:hover {
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.35);
-}
+} */
 .success-message {
     text-align: center;
 }
@@ -129,11 +129,6 @@
   font-size: 20px !important;
 }
 
-
-.banner
-{
-  width: 80% !important;
-}
 
 #routesPosts
 {
@@ -713,7 +708,7 @@ input[type=number] {
   margin: 0px 5%;
   padding: 50px 20%;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(5,5, 5,.4);
+  box-shadow: 0 0 30px rgba(0,0, 0,.2);
 }
 
 
@@ -727,7 +722,6 @@ input[type=number] {
 #closePfpForm
 {
   position: absolute;
-  top:
   color: rgb(30, 144, 255);
   top: 20px;
   right: 20px;
@@ -751,7 +745,7 @@ input
 {
   background: white;
   border-radius: 10px;
-  box-shadow: 0 0 15px rgba(5,5, 5,.4);
+  box-shadow: 0 0 30px rgba(0,0, 0,.2);
   padding: 50px;
 }
 
@@ -804,9 +798,7 @@ input
 
 .analysisDiv
 {
-  width: 90% !important;
-  margin-left: 5% !important;
-  margin-right: 5% !important;
+  width: 100% !important;
 }
 
 #teamReport
@@ -826,6 +818,28 @@ input
 }
 
 .miles.active
+{
+  color:white;
+  background: rgb(30, 144, 255);
+    border: 1px solid rgb(30, 144, 255);
+}
+
+
+.buttongroup
+{
+  background: white;
+  color: #212529;
+    /* border: 1px solid rgb(30, 144, 255); */
+}
+
+.buttongroup.active
+{
+  color:white;
+  background: rgb(30, 144, 255);
+  border: 1px solid rgb(30, 144, 255);
+}
+
+.buttongroup:hover
 {
   color:white;
   background: rgb(30, 144, 255);
@@ -967,7 +981,7 @@ input
     margin: 0px 0;
 }
 nav{
-  background-color: rgb(30, 144, 255) !important;
+  background-color: transparent;
   padding-bottom: 0 !important;
 }
 
@@ -1153,6 +1167,28 @@ background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%
   color: rgb(3, 123, 241);
 }
 
+.editPost
+{
+  color: rgb(30, 144, 255);
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 0px;
+  right:0px;
+  font-size: 24px;
+  cursor:pointer;
+  padding: 0;
+}
+.editPost:focus
+{
+  outline: none;
+}
+
+.editPost:hover
+{
+  color: rgb(3, 123, 241);
+}
+
 .removeRoute
 {
   color: rgb(30, 144, 255);
@@ -1250,7 +1286,7 @@ background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%
 .analysisChart
 {
   background: rgb(255, 255, 255);
-  padding: 25px;
+  padding: 50px;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(5,5, 5,.4);
   margin: 0px;
@@ -1382,7 +1418,7 @@ background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%
   text-align: center;
   font-weight: bold;
 
-  font-size: 20px;
+  font-size: 40px;
 }
 .analysisMember:hover
 {
@@ -1402,13 +1438,19 @@ background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%
 
 .editLink
 {
+  line-height: 50px;
   color: rgb(30, 144, 255);
 }
 
 .editLink:hover
 {
-  text-transform: none;
+  text-decoration: none;
   color: rgb(30, 144, 255);
+}
+
+.row
+{
+  margin-right: 0 !important;
 }
 
 #membersList
@@ -1418,6 +1460,11 @@ background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%
   padding: 50px;
 
   border-radius: 10px;
+}
+
+.boxShadow
+{
+  box-shadow: 0 0 30px rgba(0,0, 0,.2) !important;
 }
 
 .titleHR
@@ -1444,12 +1491,17 @@ background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%
 
 }
 
+.postDetails
+{
+  margin-left: 15px;
+}
+
 
 
 .curSelected
 {
   border-left: 10px solid rgb(30, 144, 255) !important;
-  box-shadow: 0 0 20px rgba(5,5, 5,.4);
+  /*box-shadow: 0 0 20px rgba(5,5, 5,.4);*/
 
 
 }
@@ -1505,7 +1557,7 @@ background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%
   position: absolute;
   width: 40px;
   height: 40px;
-  border: 8px solid #d4d4d4;
+  border: 8px solid rgb(30, 144, 255);
   border-top-color: transparent;
   border-radius: 50%;
 }

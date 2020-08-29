@@ -12,7 +12,7 @@ var teamsData;
 //set user variable
 function setUser(user) {
 
-  if(user) userID = user;
+  if (user) userID = user;
   else userID = null;
 }
 
@@ -21,63 +21,58 @@ auth.onAuthStateChanged(user => {
   if (user) {
     setUser(user);
 
-    if(window.location.href.substring(window.location.href.lastIndexOf("/"),window.location.href.length ) == '/index')
-    {
+    if (window.location.pathname == '/index') {
       window.location.href = './dashboard';
     }
-    if(window.location.href.substring(window.location.href.length-4, window.location.href.length) == ".com" || window.location.href.substring(window.location.href.length-4, window.location.href.length) == ".app")
-    {
+    if (window.location.pathname == "") {
       window.location.href = './dashboard';
     }
-    if(window.location.href.substring(window.location.href.lastIndexOf("/"),window.location.href.length ) == '/login')
-    {
-
+    if (window.location.pathname == '/login') {
       window.location.href = './dashboard';
     }
+    db.collection('users').doc(user.uid).get().then(userdoc => {
+      db.collection("posts").where('teamCode', '==', userdoc.data().teamCode).onSnapshot(
+        snapshot => {
 
+          postsData = snapshot.docs;
+          setPfp();
+          setupPosts(postsData, user);
+          setupUI(user);
 
-    db.collection("posts").onSnapshot(
-      snapshot => {
+          setUpPostForm();
+        },
+        err => console.log(err.message)
+      );
+      db.collection("users")
+        .onSnapshot(
+          snapshot => {
+            console.log();
+            usersData = snapshot.docs;
+            usersData.forEach(user => { });
+          },
+          err => console.log(err.message)
+        );
+      db.collection("routes").where('teamCode', '==', userdoc.data().teamCode).onSnapshot(
+        snapshot => {
 
-        postsData = snapshot.docs;
-        setPfp();
-        setupPosts(postsData, user);
-        setupUI(user);
+          routesData = snapshot.docs;
+        },
+        err => console.log(err.message)
+      );
+      db.collection("teams")
+        .onSnapshot(
+          snapshot => {
+            teamsData = snapshot.docs;
+          },
+          err => console.log(err.message)
+        );
+    })
 
-        setUpPostForm();
-
-      },
-      err => console.log(err.message)
-    );
-    db.collection("users").onSnapshot(
-      snapshot => {
-        console.log()
-        usersData = snapshot.docs;
-        usersData.forEach(user => {
-        });
-
-      },
-      err => console.log(err.message)
-    );
-    db.collection("routes").onSnapshot(
-      snapshot => {
-
-        routesData = snapshot.docs;
-      },
-      err => console.log(err.message)
-    );
-    db.collection("teams").onSnapshot(
-      snapshot => {
-
-        teamsData = snapshot.docs;
-      },
-      err => console.log(err.message)
-    );
 
 
   } else {
-    if(window.location.href.substring(window.location.href.lastIndexOf("/"),window.location.href.length ) == '/dashboard')
-    {
+    if (window.location.pathname == '/dashboard') {
+      auth.signOut();
       window.location.href = './index';
     }
     setupUI();

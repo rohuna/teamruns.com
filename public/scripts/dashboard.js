@@ -79,7 +79,7 @@ $(document).ready(function() {
 	}
 	else {
 		$(".pageLink").css("display", "none");
-		sideWrapper.style.display = "block";
+		sideWrapper.style.display = "none";
 	}
 
 });
@@ -230,6 +230,9 @@ sideWrapper.innerHTML = "";
 sideWrapper.style.display = "none";
 }
 
+
+var editRunButton = document.querySelector("#editRunButton");
+var editRunSection = document.querySelector("#editRunSection");
 var postSection = document.querySelector("#postSection");
 var createForm = document.querySelector("#create-form");
 var newRunButton = document.querySelector("#newRunButton");
@@ -251,6 +254,8 @@ var postList = document.querySelector('.posts');
 
 function setNavbarListeners() {
 
+  editRunButton = document.querySelector("#editRunButton");
+  editRunSection = document.querySelector("#editRunSection");
 	postSection = document.querySelector("#postSection");
 	createForm = document.querySelector("#create-form");
 	 newRunButton = document.querySelector("#newRunButton");
@@ -272,7 +277,7 @@ function setNavbarListeners() {
 	newRunButton.addEventListener("click", e=> {
 	  e.preventDefault();
 		window.scrollTo(0, 0);
-	  noPostsSection.style.display = "none";
+    noPostsSection.style.display = "none";
 	  //set current date and time
 	  var currentdate = new Date();
 	  var curDay = currentdate.getDate();
@@ -295,25 +300,11 @@ function setNavbarListeners() {
 	    curHour = 12;
 	  }
 	  if(curMin < 10) curMin = "0"+curMin;
-	  document.getElementById("time").value = curHour + ":" + curMin;
-	  var am = document.querySelector("#am");
-	  var pm = document.querySelector("#pm");
-	  am.addEventListener("click", e => {
-	    e.preventDefault();
-	    am = document.querySelector("#am");
-	    pm = document.querySelector("#pm");
-	    am.classList.add("active");
-	    pm.classList.remove("active");
-	  });
+    document.getElementById("time").value = curHour + ":" + curMin;
+    
+    addAmPmListeners();
 
-	    pm.addEventListener("click", e => {
-	      e.preventDefault();
-	      am = document.querySelector("#am");
-	      pm = document.querySelector("#pm");
-	      pm.classList.add("active");
-	      am.classList.remove("active");
-	    });
-
+	  
 
 	  if(teamActivity.parentElement.classList.contains("active"))
 	  {
@@ -389,7 +380,12 @@ function setNavbarListeners() {
 		    }
 		  if(team.parentElement.classList.contains("active"))
 		  {
-		    team.parentElement.classList.remove("active")
+        postList = document.getElementById("teamMembers");
+        if (typeof postList.style != "undefined")
+          postList.style.display = "none";
+        team.parentElement.classList.remove("active");
+        postList = document.querySelector('.posts');
+        
 		  }
 		  if(analysisNav.parentElement.classList.contains("active"))
 		  {
@@ -428,7 +424,8 @@ function setNavbarListeners() {
 	    setupPosts(postsData, userID);
 	  }
 
-	});
+  });
+
 
 	team.addEventListener("click", e=> {
 	  e.preventDefault();
@@ -879,11 +876,12 @@ function setNavbarListeners() {
 	});
 
 	homeNav.addEventListener("click", e=> {
-	  e.preventDefault();
+    e.preventDefault();
 	  if(typeof postList.style != "undefined")
 	    postList.style.display = "none";
 	  if(!homeNav.parentElement.classList.contains("active"))
 	  {
+      removeDisplayOfClass(".dashSections");
 			window.scrollTo(0, 0);
 
 	    homeNav.parentElement.classList.add("active");
@@ -938,14 +936,79 @@ function setNavbarListeners() {
 	    homeSection.style.display = "block";
 	    setupPosts(postsData, userID);
 	  }
-	});
+  });
+  
+  editRunButton.addEventListener("click", () => {
+
+    window.scrollTo(0, 0);
+    if (typeof postList.style != "undefined")
+      postList.style.display = "none";
+    if (teamActivity.parentElement.classList.contains("active")) {
+      if (typeof postList.style != "undefined")
+        postList.style.display = "none";
+      teamActivity.parentElement.classList.remove("active");
+    }
+    if (team.parentElement.classList.contains("active")) {
+      if (typeof postList.style != "undefined")
+        postList.style.display = "none";
+      team.parentElement.classList.remove("active");
+    }
+    if (analysisNav.parentElement.classList.contains("active")) {
+      analysisNav.parentElement.classList.remove("active");
+      analysisSection.style.display = "none";
+    }
+    if (teamRoutes.parentElement.classList.contains("active")) {
+      teamRoutes.parentElement.classList.remove("active");
+      postList = document.getElementById("routesPosts");
+      if (typeof postList.style != "undefined")
+        postList.style.display = "none";
+    }
+    if (summaryNav.parentElement.classList.contains("active")) {
+      summaryNav.parentElement.classList.remove("active");
+      summaryList.style.display = "none";
+    }
+    if (settingsNav.parentElement.classList.contains("active")) {
+      settingsNav.parentElement.classList.remove("active");
+      settingsSection.style.display = "none";
+    }
+    if (watchNav.parentElement.classList.contains("active")) {
+      watchNav.parentElement.classList.remove("active");
+      watchSection.style.display = "none";
+    }
+    if (planNav.parentElement.classList.contains("active")) {
+      planNav.parentElement.classList.remove("active");
+      planSection.style.display = "none";
+    }
+    if (newRunButton.style.display == "none") {
+      postSection.style.display = "none";
+    }
+    if (homeNav.parentElement.classList.contains("active")) {
+      homeNav.parentElement.classList.remove("active");
+      homeSection.style.display = "none";
+    }
+
+    setUpEditSection();
+
+    postSection.style.display = "block";
+    if (typeof postList.style != "undefined")
+      postList.style.display = "none";
+    postList.style.display = "none";
+    newRunButton.style.display = "none";
+    //setupPosts(postsData, userID);
+  })
+
+  
+
+
+
+
 
 	if(usersData)
 	{
 		usersData.forEach(user => {
 			if(user.id == userID.uid)
 			{
-				if(user.data().teamCode != "" || user.data().teamCode)
+				if(user.data().teamCode != "" || user.data().teamCode || editid == "")
 				{
 					newRunButton.style.display = "block";
 				}
@@ -1434,6 +1497,9 @@ function updateFieldsWithRoute(nameOfRoute){
 }
 
 
+
+
+
 // create new post
 
 createForm.addEventListener("submit", e => {
@@ -1632,45 +1698,91 @@ createForm.addEventListener("submit", e => {
 
   });
   date = new Date(year, months.indexOf(month), day, time.hours(), time.minutes());
-  db.collection('users').doc(userID.uid).get().then(doc => {
-    db.collection("posts")
+
+  if(editid == "")
+  {
+    db.collection('users').doc(userID.uid).get().then(doc => {
+      db.collection("posts")
         .add({
-        description: createForm.description.value,
-        segments: segmentsArr,
-        first: doc.data().first,
-        last: doc.data().last,
-        teamCode: doc.data().teamCode,
-        pfp: doc.data().pfp,
-        userid: userID.uid,
-        month: month,
-        day: day,
-        year: year,
-        hour: time.hours(),
-        minute: time.minutes(),
-        ampm: ampm,
-        date: date,
-        totalDistance: totalDist,
-        totalTime: totalTime,
-        totalHours: totalHours,
-        totalMinutes: totalMinutes,
-        totalSeconds: totalSeconds,
-				elevation: elevation
+          description: createForm.description.value,
+          segments: segmentsArr,
+          first: doc.data().first,
+          last: doc.data().last,
+          teamCode: doc.data().teamCode,
+          pfp: doc.data().pfp,
+          userid: userID.uid,
+          month: month,
+          day: day,
+          year: year,
+          hour: time.hours(),
+          minute: time.minutes(),
+          ampm: ampm,
+          date: date,
+          totalDistance: totalDist,
+          totalTime: totalTime,
+          totalHours: totalHours,
+          totalMinutes: totalMinutes,
+          totalSeconds: totalSeconds,
+          elevation: elevation
         })
         .then(() => {
-        //createForm.reset();
-        //setUpSegmentsForm();
-        //addListeners();
+          //createForm.reset();
+          //setUpSegmentsForm();
+          //addListeners();
 
-        window.location.href = window.location.href;
+          window.location.href = window.location.href;
         })
         .catch(err => {
-        console.log(err.message);
+          console.log(err.message);
         });
     });
+
+  }
+  else{
+    db.collection('users').doc(userID.uid).get().then(doc => {
+      db.collection("posts").doc(editid)
+        .update({
+          description: createForm.description.value,
+          segments: segmentsArr,
+          first: doc.data().first,
+          last: doc.data().last,
+          teamCode: doc.data().teamCode,
+          pfp: doc.data().pfp,
+          userid: userID.uid,
+          month: month,
+          day: day,
+          year: year,
+          hour: time.hours(),
+          minute: time.minutes(),
+          ampm: ampm,
+          date: date,
+          totalDistance: totalDist,
+          totalTime: totalTime,
+          totalHours: totalHours,
+          totalMinutes: totalMinutes,
+          totalSeconds: totalSeconds,
+          elevation: elevation
+        })
+        .then(() => {
+          editid = "";
+
+          //createForm.reset();
+          //setUpSegmentsForm();
+          //addListeners();
+
+          window.location.href = window.location.href;
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+  });
+
+  
   }
 
 
-});
+  }
+  });
 
 if(teamRoutes.parentElement.classList.contains("active"))
 {
@@ -1824,20 +1936,58 @@ function mergeDist (left, right) {
 
 //delete post
 function Delete(currentEl){
-
+  console.log(currentEl);
   document.querySelectorAll(".posts")[0].style.display = "none";
   document.querySelector("#dashPostsLoading").style.display = "block";
     postsData.forEach(doc => {
-       if(doc.id === currentEl.parentElement.parentElement.parentElement.parentElement.id)
+      if (homeNav.classList.contains("active") && doc.id === currentEl.parentElement.parentElement.parentElement.id)
        {
         db.collection('posts').doc(doc.id).delete().then(function() {
-          setupPosts(postsData, userID);
-        currentEl.parentElement.parentElement.parentElement.parentElement.style.display = "none";
+        console.log("done");
+        currentEl.parentElement.parentElement.parentElement.style.display = "none";
         document.querySelector("#dashPostsLoading").style.display = "none";
-        document.querySelectorAll(".posts")[0].style.display = "block";
+        if(homeNav.classList.contains("active"))
+        {
+          document.querySelector("#homeSection").style.display = "block";
+        }
+        else
+        {
+          console.log("hi");
+          document.querySelectorAll(".posts")[0].style.display = "block";
+
+          setupPosts(postsData, userID);
+        }
+      });
+      }
+      else if (doc.id === currentEl.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.id)
+      {
+        db.collection('posts').doc(doc.id).delete().then(function () {
+          console.log("done");
+          currentEl.parentElement.parentElement.parentElement.style.display = "none";
+          document.querySelector("#dashPostsLoading").style.display = "none";
+          if (homeNav.classList.contains("active")) {
+            document.querySelector("#homeSection").style.display = "block";
+          }
+          else {
+            console.log("hi");
+            document.querySelectorAll(".posts")[0].style.display = "block";
+
+            setupPosts(postsData, userID);
+          }
       });
     }
-    });
+    
+  })
+}
+
+var editid = "";
+
+//delete post
+function Edit(currentEl) {
+
+
+  editid = currentEl.id;
+  editRunButton.click();
 }
 
 //delete route
@@ -1868,10 +2018,14 @@ const setupPosts = (data, user) => {
     postsData = data;
     var teamPosts = [];
     var teamRoutes = [];
+    //if(userTeamCode == "");
+    //$("#sidebar-wrapper").css("display", "none");
+
     db.collection('users').doc(userID.uid).get().then(curUser => {
       userTeamCode = curUser.data().teamCode;
 			if(userTeamCode != "")
 			{
+        $("#sidebar-wrapper").css("display", "block");
 				$(".pageLink").css("display", "block");
 	      postsData.forEach(doc => {
 	        if(doc.data().teamCode == curUser.data().teamCode)
@@ -1907,15 +2061,25 @@ const setupPosts = (data, user) => {
 			}
 			else {
 				var pfpN = document.getElementById("pfpNav");
-				pfpN.style.display = "inline-block";
-				$(".pageLink").css("display", "none");
-				var joinTeamSection = document.getElementById("joinTeamSection");
-				var banner = `
-					<div class = "row bannerDiv" style = "display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70vh; margin-top:25px;">
-					<div class = "banner" style = "width: 50%; background: white; box-shadow: 0 0 15px rgba(5,5, 5,.4); padding: 100px; border-radius: 20px;">
-					<h1 class = "bannerHead" style = "font-weight:bold; font-size: 50px;">Welcome ${curUser.data().first}!</h1>
-					<form id = "memberForm" novalidate>
-						<h1 style = "font-size: 36px;" class = "formTitle">Join your Team:</h1>
+        pfpN.style.display = "inline-block";
+        $("#wrapper").css(
+          "background",
+          "linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%)"
+        );
+
+        
+        var joinTeamSection = document.getElementById("joinTeamSection");
+        joinTeamSection.style.padding = "0";
+        var banner = `
+        <div class = "joinContainer" style = "display: none; padding: 0 15%; ">
+					<div class = "row bannerDiv no-gutters boxShadow" style = " margin-right: 0 !important; border-radius: 20px; background: white; align-items: center; text-align: center; min-height: 70vh; margin-top:25px;">
+          <div class = "col-md-6">
+          <div class = "banner" style = " background: white; padding-left: 25px; width: 100%; border-radius: 20px;">
+					<h1 class = "bannerHead" style = "font-weight:bold; font-size: 50px;">Welcome ${
+            curUser.data().first
+          }!</h1>
+					<form id = "memberForm" novalidate style = "margin-left: 20%; width: 60%;">
+						<h1 style = "font-size: 36px;" class = "formTitle">Join your team:</h1>
 						<div class="input-field" id = "teamCodeField">
 								<label for="inp" class="inpdark" style = "margin-top: 20px">
 									<input autocomplete="off" type="text" for = "memberForm" id="teamcode" placeholder="&nbsp;">
@@ -1925,16 +2089,25 @@ const setupPosts = (data, user) => {
 								<div id = "teamCodeError" class = "error" style = "display: block"></div>
 								</div>
 						<button id = "teamCodeButton" type = "submit" class="formButton">Join</button>
-						<a style = "width: 100%; display: block" id = "newTeam">Want to create a new team?</a>
+						<a style = "width: 100%; display: block" id = "newTeam">Create a new team?</a>
 					</form>
-					</div>
-					</div>
+          </div>
+          </div>
+          <div class = "col-md-6">
+            <img src = "../images/fitness.svg" style = "width: 80%;">
+          </div>
+          </div>
+          </div>
 						`;
-				joinTeamSection.innerHTML = banner;
+        joinTeamSection.innerHTML = banner;
+        
 				var dashPostsLoading = document.getElementById("dashPostsLoading");
 				dashPostsLoading.style.display = "none";
 				joinTeamSection.style.display = "block";
+        setTimeout(function () {
 
+            toggleOpacity(".joinContainer", ".bannerDiv", "block");
+        }, 100);
 				var newTeam = document.getElementById("newTeam");
 					newTeam.addEventListener("click", e => {
 					var memberForm = document.getElementById("memberForm");
@@ -2102,28 +2275,36 @@ function setPosts(curUser){
 
 		postList = document.querySelectorAll('.posts')[0];
 		postList.style.display = "none";
-		postList.innerHTML = "";
+    postList.innerHTML = "";
+    
+    homeSection.innerHTML = "";
 
 
 		var sectionHtml = "";
 
 		if(curUser.data().isAdmin)
 		{
-			sectionHtml += `
+      sectionHtml += `
+      <div class = "dashSections row" style = "margin-right: 0 !important">
+      <div class = "col-sm-6">
 			<div class = "titleDiv"><h1 class = "mainTitle">${curUser.data().teamName}</h1>
-															<h5 class = "" style = "font-weight: bold">Team Code: ${curUser.data().teamCode}</h5>
+															<h5 class = "" style = "font-weight: bold">Team Code: ${
+                                curUser.data().teamCode
+                              }</h5>
 			</div>
-			`
+			`;
 		}
 		else {
-			sectionHtml += `
+      sectionHtml += `
+       <div class = "dashSections row" style = "margin-right: 0 !important">
+      <div class = "col-sm-6">
 			<div class = "titleDiv"><h1 class = "mainTitle">${curUser.data().teamName}</h1>
 
 			</div>
-			`
+			`;
 		}
 
-		homeSection.innerHTML = sectionHtml;
+		
 
 		//array of pfps
 		var postPfps = [];
@@ -2132,54 +2313,8 @@ function setPosts(curUser){
 		postsData = mergeSort(postsData);
 
 		//postsByDate contains objects of dates and corresponding posts
-		postsByDate = [];
+		postsByDate = getPostsByDate("both");
 
-		//loop through all posts
-		postsData.forEach(doc => {
-
-			var isBanned = false;
-			usersData.forEach(user => {
-					if(doc.data().userid != null && doc.data().userid == user.id)
-					{
-						if(user.data().isBanned)
-							isBanned = true;
-					}
-			});
-
-			if(!isBanned)
-			{
-				//boolean if date is already put into array
-				var isPut = false;
-
-				//check where date is already there and add it to corresponding posts
-				for (var i = 0; i < postsByDate.length; i++) {
-					if((doc.data().day == postsByDate[i].day) && (doc.data().month == postsByDate[i].month) && (doc.data().year == postsByDate[i].year))
-					{
-						postsByDate[i].posts.push(doc);
-						isPut = true;
-					}
-				}
-
-				//if date is not already there
-				if(!isPut)
-				{
-					var months = ["January", "February", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"];
-					var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-					var newDate = new Date(doc.data().year, months.indexOf(doc.data().month), doc.data().day );
-					//since date is not already there add a new object to postsByDate
-					postsByDate.push({
-						date: doc.data().date,
-						dayName: days[newDate.getDay()],
-						day: doc.data().day,
-						month: doc.data().month,
-						year: doc.data().year,
-						posts: [doc]
-					});
-				}
-			}
-
-
-		});
 
 		//loop through dates
 		var today = new Date();
@@ -2226,41 +2361,57 @@ function setPosts(curUser){
 
 
 				//add date to postsList and divs
-				homeSection.innerHTML+= `
-
-				<div class = "row" style = "margin-right: 15px">
-
-				<div class = "col-sm-7">
-				<div id = "todaysActivities"class = "dateSection" style = "  margin-bottom: 50px;">
-				<h1 class = "dateTitle">Today's Activities</h1>
+   var homeSectionHtml =
+      sectionHtml +
+      `
+        <div id = "todaysActivities"class = "dateSection" style = "  margin-bottom: 50px;">
+				<h1 class = "dateTitle">  Today's Activities</h1>
 				<div class = "row" >
 
 					<div id = "${todaysPosts.month}${todaysPosts.day}${todaysPosts.year}selected" class = "col-sm-12 selectedRun" style = "">
 					</div>
 					<div class = "col-sm-12 activities" style = "display: none">
-					</div>
-				</div>
-				</div>
-				</div>
+          </div>
+          <a onclick = "teamactivity.click()" style = "color: rgb(30, 144, 255); padding-left: 15px; cursor: pointer; font-size: 18px;">View Activities <i class = "fa fa-chevron-right" style = "font-size: 16px;"></i></a>
 
-				<div class = "col-sm-5">
-				<div id = "thisWeek" class = "dateSection" style = "margin-bottom: 25px;">
-					<h1 style = "font-weight: bold">Your Week</h1>
-					<canvas id = "weekGraph"></canvas>
-					<p id = "weekMessage"></p>
 				</div>
-					<div id = "todaysPlan" class = "dateSection">
+        </div>
+        </div>
+       
+
+        <div class = "col-sm-6" style = "">
+          <div style = "width: 95%;">
+				  <div id = "thisWeek" class = "dateSection" style = "margin-bottom: 25px; background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%);
+">`
+    if (curUser.data().isAdmin) homeSectionHtml+= `<h1 style = "font-weight: bold; color: white; ">Week Totals</h1>`;
+    else homeSectionHtml += `<h1 style = "font-weight: bold; color: white; ">Your Week</h1>`;
+          
+          
+    homeSectionHtml += `<canvas id = "weekGraph"></canvas>
+          <p id = "weekMessage"></p>
+          <a onclick = "analysisNav.click()" style = "color: white; cursor: pointer; font-size: 18px;">View Analysis <i class = "fa fa-chevron-right" style = "font-size: 16px;"></i></a>
+				</div>
+					<div id = "todaysPlan" class = "dateSection" style = "">
 						<h1 style = "font-weight: bold">Today's Plan</h1>
-						<p class = "todayPlan" style = "white-space: pre-wrap;">${todayPlan}</p>
+            <p class = "todayPlan" style = "white-space: pre-wrap;">${todayPlan}</p>
+            <a onclick = "planNav.click()" style = "color: rgb(30, 144, 255); cursor: pointer; font-size: 18px;">View Team Plan <i class = "fa fa-chevron-right" style = "font-size: 16px;"></i></a>
+
 					</div>
+        </div>
+				</div>
+
+
+				
+
+
 
 
 				</div>
 
-
-				</div>
-
-					`;
+          `;
+          
+          homeSection.innerHTML += homeSectionHtml;
+          toggleOpacity(".dashSections", ".dateSection", "flex");
 
 				if(todaysPosts != "")
 				{
@@ -2315,21 +2466,22 @@ function setPosts(curUser){
 								}
 						});
 
-
 					li = `
 						<a id = "${todaysPosts.posts[j].id}" class = "runPost ${todaysPosts.month}${todaysPosts.day}${todaysPosts.year}" style = "cursor: pointer">
 						<li class = "postItem"  id = "${post.userid}" >`;
-						if(curUser.id == post.userid || curUser.data().isAdmin || curUser.data().isMod)
-						{
-							li+= `<div style = "position:relative; width: 100%; height:inherit;"><button class = "removePost" style = ""><i class="far fa-trash-alt fa-sm"></i></button></div>`;
-						}
+						
 
-						li+= `
+						li += `
 								<img  class = "postPfp topPfp" src = "${postPfpUrl}" width = "40px" height = "40px" style = "border-radius:50%; margin-top: 5px;">
 								<div  class="postTitle topName" style = "font-size: 14px">  ${post.first} <br>${post.last} <br> </div>
 								<div ></div>
 								<div class = "postName"></div>
-								<div class = "postDetails" style = "display: none">
+                <div id = "${todaysPosts.posts[j].id}" class = "postDetails" style = "display: none">`;
+            if (curUser.id == post.userid || curUser.data().isAdmin || curUser.data().isMod) {
+              li += `<div style = "position:relative; width: 100%; height:inherit;"><button  id = "${todaysPosts.posts[j].id}" class = "editPost" style = "margin-right: 30px; padding: 10px;"><i  id = "${todaysPosts.posts[j].id}" class="fas fa-pen fa-xs"></i></button><button class = "removePost" style = "padding: 10px;"><i class="far fa-trash-alt fa-sm"></i></button></div>`;
+            }
+
+                li+=`
 								<table class = "postTable" style = "border-collapse: collapse; width: 100%;">
 								<tr >
 										<th colspan = "4" class = "topRow noBorder"><img class = "postPfp" src = "${postPfpUrl}" width = "40px" height = "40px" style = "border-radius:50%; margin-top: 5px;">
@@ -2480,8 +2632,8 @@ function setPosts(curUser){
 					org.style.fontSize = "20px";
 
 					document.querySelector(`#${todaysPosts.month}${todaysPosts.day}${todaysPosts.year}selected`).innerHTML = postItems[k].innerHTML;
-					if($(`#${todaysPosts.month}${todaysPosts.day}${todaysPosts.year}selected`).find('i').length > 0)
-						$(`#${todaysPosts.month}${todaysPosts.day}${todaysPosts.year}selected`).find('i')[0].remove();
+					// if($(`#${todaysPosts.month}${todaysPosts.day}${todaysPosts.year}selected`).find('i').length > 0)
+					// 	$(`#${todaysPosts.month}${todaysPosts.day}${todaysPosts.year}selected`).find('i')[0].remove();
 					document.querySelector(`#${todaysPosts.month}${todaysPosts.day}${todaysPosts.year}selected`).style.borderLeft = "none";
 					//document.querySelector(`#${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}selected`).style.borderTop = "10px solid rgb(30, 144, 255)";
 
@@ -2503,15 +2655,30 @@ function setPosts(curUser){
 
 		//document.querySelectorAll(".posts")[0].style.display = "block";
 
-		var removePostButtons = document.querySelectorAll(".removePost");
-		for (var i = 0; i < removePostButtons.length; i++) {
-			removePostButtons[i].addEventListener("click", function(e){
-				console.log(e.target);
-				e.preventDefault();
-				Delete(e.target);
+    addPostListeners();
 
-			});
-		}
+
+    function addPostListeners() {
+      var removePostButtons = document.querySelectorAll(".removePost");
+      for (var i = 0; i < removePostButtons.length; i++) {
+        removePostButtons[i].addEventListener("click", function(e){
+          console.log(e.target);
+          e.preventDefault();
+          Delete(e.target);
+
+        });
+      }
+      
+      var editPostButtons = document.querySelectorAll(".editPost");
+      for (var i = 0; i < editPostButtons.length; i++) {
+        editPostButtons[i].addEventListener("click", function(e){
+          console.log(e.target);
+          e.preventDefault();
+          Edit(e.target);
+
+        });
+      }
+    }
 
 		//click listeners to change selected post
 		var runPosts = document.querySelectorAll('.runPost');
@@ -2549,12 +2716,15 @@ function setPosts(curUser){
 										org.style.display = "block";
 
 										selectedRuns[j].innerHTML = this.children[0].innerHTML;
-										if($(selectedRuns[j]).find('i').length > 0)
-											$(selectedRuns[j]).find('i')[0].remove();
+										//if($(selectedRuns[j]).find('i').length > 0)
+										//	$(selectedRuns[j]).find('i')[0].remove();
 										org.style.display = "none";
 										org2.style.display = "block";
 											org3.style.display = "block";
-										this.children[0].classList.add("curSelected");
+                    this.children[0].classList.add("curSelected");
+                    
+                    addPostListeners();
+                    
 										break;
 									}
 								}
@@ -2580,37 +2750,64 @@ function setPosts(curUser){
 				selectedRun[0].style.display = "none";
 			}
 
-			var weekData = [];
-			var months = ["January", "February", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"];
-			var usersPosts = [];
-			postsData.forEach(post => {
-				if(post.data().userid == curUser.id)
-				{
-					usersPosts.push(post);
+      var weekData = [];
+      if (!curUser.data().isAdmin)
+      {
+
+        
+        var months = ["January", "February", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"];
+        var usersPosts = [];
+        postsData.forEach(post => {
+          if(post.data().userid == curUser.id)
+          {
+            usersPosts.push(post);
 
 
-				}
-			});
+          }
+        });
 
-			var today = new Date();
-			today.setDate(today.getDate() - (today.getDay()));
-			for(var i = 0; i < 7; i++)
-			{
-				var thisDaysMileage = 0;
+        var today = new Date();
+        today.setDate(today.getDate() - (today.getDay()));
+        for(var i = 0; i < 7; i++)
+        {
+          var thisDaysMileage = 0;
 
-				usersPosts.forEach((post, j) => {
-					console.log(today.getDate(),post.data().day)
-						if(today.getDate() == parseInt(post.data().day) && today.getMonth() == months.indexOf(post.data().month) && today.getFullYear() == parseInt(post.data().year))
-						{
-							thisDaysMileage += post.data().totalDistance;
-						}
-				});
+          usersPosts.forEach((post, j) => {
+            console.log(today.getDate(),post.data().day)
+              if(today.getDate() == parseInt(post.data().day) && today.getMonth() == months.indexOf(post.data().month) && today.getFullYear() == parseInt(post.data().year))
+              {
+                thisDaysMileage += post.data().totalDistance;
+              }
+          });
 
-				weekData.push(thisDaysMileage);
+          weekData.push(thisDaysMileage.toFixedDown(2));
 
-				today.setDate(today.getDate() + 1);
+          today.setDate(today.getDate() + 1);
 
-			}
+        }
+      }
+      else
+      {
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+        var today = new Date();
+        today.setDate(today.getDate() - (today.getDay()));
+        for (var i = 0; i < 7; i++) {
+          var thisDaysMileage = 0;
+
+          postsData.forEach((post, j) => {
+            console.log(today.getDate(), post.data().day)
+            if (today.getDate() == parseInt(post.data().day) && today.getMonth() == months.indexOf(post.data().month) && today.getFullYear() == parseInt(post.data().year)) {
+              thisDaysMileage += post.data().totalDistance;
+            }
+          });
+
+          weekData.push(thisDaysMileage.toFixedDown(2));
+
+          today.setDate(today.getDate() + 1);
+
+        }
+      }
 
 			var noData = true;
 			for (var i = 0; i < weekData.length; i++) {
@@ -2634,15 +2831,18 @@ function setPosts(curUser){
 						// The data for our dataset
 						data: {
 
-								labels: ["S", "M", "T", "W", "T", "F", "S"],
+								labels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
 								datasets: [{
 										lineTension: 0,
-										borderColor: 'rgb(30, 144, 255)',
+										borderColor: 'white',
 											data: weekData,
 										pointRadius: 5,
-										backgroundColor: "rgb(30, 144, 255)",
+                    backgroundColor: "white",
+                    strokeColor: "white",
+
 										pointHoverRadius: 7,
-										pointBackgroundColor: 'rgb(30, 144, 255)'
+                    pointBackgroundColor: 'rgb(30, 144, 255)',
+                    scaleFontColor: "#FFFFFF",
 								}]
 						},
 
@@ -2656,13 +2856,16 @@ function setPosts(curUser){
 							},
 							scales: {
 								xAxes: [{
+                    ticks: {
+                      fontColor: "white"
+                    },
 				            gridLines: {
 				                display:false
 				            }
 				        }],
 								yAxes: [{
 										ticks: {
-												stepSize: 2,
+                        fontColor: "white",
 												beginAtZero: true
 										},
 										gridLines: {
@@ -2679,7 +2882,7 @@ function setPosts(curUser){
 					var weekGraph = document.getElementById('weekGraph');
 					weekGraph.style.display = "none";
 					weekGraph = document.getElementById('weekMessage');
-					weekGraph.innerHTML = `<span style = "font-size: 20px;"> You haven't posted this week</span>`;
+					weekGraph.innerHTML = `<span style = "font-size: 20px; color: white"> You haven't posted this week</span>`;
 			}
 
   }
@@ -2704,54 +2907,8 @@ function setPosts(curUser){
       postsData = mergeSort(postsData);
 
       //postsByDate contains objects of dates and corresponding posts
-      postsByDate = [];
-
-      //loop through all posts
-      postsData.forEach(doc => {
-
-        var isBanned = false;
-        usersData.forEach(user => {
-            if(doc.data().userid != null && doc.data().userid == user.id)
-            {
-              if(user.data().isBanned)
-                isBanned = true;
-            }
-        });
-
-        if(!isBanned)
-        {
-          //boolean if date is already put into array
-          var isPut = false;
-
-          //check where date is already there and add it to corresponding posts
-          for (var i = 0; i < postsByDate.length; i++) {
-            if((doc.data().day == postsByDate[i].day) && (doc.data().month == postsByDate[i].month) && (doc.data().year == postsByDate[i].year))
-            {
-              postsByDate[i].posts.push(doc);
-              isPut = true;
-            }
-          }
-
-          //if date is not already there
-          if(!isPut)
-          {
-            var months = ["January", "February", "March", "April","May", "June", "July", "August", "September", "October", "November", "December"];
-            var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-            var newDate = new Date(doc.data().year, months.indexOf(doc.data().month), doc.data().day );
-            //since date is not already there add a new object to postsByDate
-            postsByDate.push({
-              date: doc.data().date,
-              dayName: days[newDate.getDay()],
-              day: doc.data().day,
-              month: doc.data().month,
-              year: doc.data().year,
-              posts: [doc]
-            });
-          }
-        }
-
-
-      });
+      postsByDate = getPostsByDate("both");
+      
 
         postList.innerHTML += `<div class = "titleDiv"><h1 class = "mainTitle">Activities</h1>
 
@@ -2762,7 +2919,7 @@ function setPosts(curUser){
 
 
 
-			  postList.innerHTML += `<div class = "dateSection" style = "margin-bottom: 25px;">
+			  postList.innerHTML += `<div class = "dateSection" style = "margin-bottom: 25px; padding-bottom: 25px; ">
 																<div class = "row">
 
 																	<div class = "col-sm-2">
@@ -2773,10 +2930,23 @@ function setPosts(curUser){
 																	<form id = "filterform"  style = "width: 100%;"novalidate>
 																		<div class = "row">
 																			<div class = "col-sm">
-																				<p>Show Activities Before: </p>
+																				<p>Date: </p>
 																				<label for="inp" class="inp">
-												                  <input type="text" id="startDate" placeholder="&nbsp;" autocomplete="off" style = "height: 45px; padding: 8px;">
+                                            <input type="text" id="startDate" placeholder="&nbsp;" autocomplete="off" style = "height: 45px; padding: 8px;">
 												                  <span class="focus-bg"></span>
+												                </label>
+
+																				<a id = "selectStart"></a>
+                                      </div>
+                                      <div class = "col-sm">
+																				<p>Gender: </p>
+                                        <div class="btn-group" id = "genderGroup" role="group" aria-label="" style = "height: 45px; ">
+                                            <button type="button" class="btn btn-secondary gender buttongroup both active">Both</button>
+                                            <button type="button" class="btn btn-secondary gender buttongroup male">Male</button>
+                                            <button type="button" class="btn btn-secondary gender buttongroup female">Female</button>
+
+                                         </div>
+												                  
 												                </label>
 
 																				<a id = "selectStart"></a>
@@ -2790,9 +2960,9 @@ function setPosts(curUser){
 																	</div>
 																</div>
 															</div>
-															<div id= "activities"></div>`
+															<div id= "activities"></div>`;
 
-
+              addGenderGroupListeners();
 
 					setTimeout(function () {
 						$("#startDate").datetimepicker({
@@ -2816,13 +2986,40 @@ function setPosts(curUser){
 
 
 								document.getElementById("filterform").addEventListener("submit", function(e){
-									e.preventDefault();
-									setActivities(activities, curUser, postsByDate, $("#startDate").data("DateTimePicker").date()._d);
+                  e.preventDefault();
+
+                  var genderName;
+
+                  var genders = document.getElementsByClassName("gender");
+                  
+                  for(var i = 0; i < genders.length; i++) {
+                    if(genders[i].classList.contains("active")) genderName = genders[i].innerHTML.toLowerCase();
+                  }
+
+                  var startDate;
+                  
+                  if ($("#startDate").data("DateTimePicker").date() == null)
+                  {
+                      startDate = new Date();
+                  }
+                  else
+                    startDate = $("#startDate").data("DateTimePicker").date()._d;
+
+                  //sort postsData by date
+                  postsData = mergeSort(postsData);
+
+                  //postsByDate contains objects of dates and corresponding posts
+                  postsByDate = getPostsByDate(genderName);
+
+                  console.log(postsByDate);
+
+
+                    setActivities(activities, curUser, postsByDate, startDate, true, 5, 5);
 								});
 
-									setActivities(activities, curUser, postsByDate, new Date());
+									setActivities(activities, curUser, postsByDate, new Date(), true, 5, 5);
 					}, 100);
-
+             toggleOpacity(".posts", ".dateSection", "block");
 
 
 
@@ -2932,6 +3129,9 @@ function setPosts(curUser){
         //console.log()
       }
 
+
+
+
         summaryNav = document.getElementById("summaryNav");
 
         if(summaryNav.parentElement.classList.contains("active")){
@@ -3021,7 +3221,7 @@ function setPosts(curUser){
           teamHtml += `
 
           <div id = "teamReport">
-          <div id = "summaries" class="btn-group" role="group" aria-label="Basic example">`
+          <div id = "summaries" class="btn-group" role="group">`
           if(window.innerWidth >= mobwidth)
           {
             teamHtml += `<button type="button" id = "daily" class="btn btn-secondary selectedSummary">Daily Summary</button>
@@ -3184,16 +3384,17 @@ function setPosts(curUser){
                                 <button type="button" id = "bymonth" class="btn btn-secondary buttonHeader">By Month</button>
                               </div>
 
-                              <div class = "col-sm-6" style = "margin-top: 20px;">
+                              <div class = "col-sm-12" style = "margin-top: 20px;">
 
                               <div class = "analysisChart" style = "margin-top: 20px;">  <p class = "chartTitle">Mileage</p><canvas  id="mileageChart"></canvas></div>
                               </div>
-                                <div class = "col-sm-6" style = "margin-top: 20px;">
+                                <div class = "col-sm-12" style = "margin-top: 20px;">
                               <div class = "analysisChart" style = "margin-top: 20px;"><p class = "chartTitle">Average Pace</p><canvas   id="paceChart"></canvas></div>
 
                               </div>
-                                <div class = "row analysisExpand" style = "padding: 0; width: 100%;">
+                                  <div class = "col-sm-12 analysisExpand" style = " width: 100%; margin-top: 20px;">
                                 <div class = "analysisChart" style = "margin-top: 20px; padding: 50px 50px; width: 100%;">
+                                <p class = "chartTitle">Tabular</p>
                                 <div id = "byEachList" style = "width: 100%;">
                                 </div>
                                 </div>
@@ -3216,7 +3417,7 @@ function setPosts(curUser){
             $(".teamMember").css("margin-top", "15px");
           }
           setTimeout(function () {
-              updateAnalysisByWeek(new Date(), 3, dataOfTeam);
+              updateAnalysisByWeek(new Date(), 6, dataOfTeam);
           }, 50);
 
 
@@ -3282,7 +3483,7 @@ function setPosts(curUser){
             e.preventDefault();
             var byweek = document.getElementById("byweek");
             var bymonth = document.getElementById("bymonth");
-            updateAnalysisByWeek(new Date(), 3, dataOfTeam);
+            updateAnalysisByWeek(new Date(), 6, dataOfTeam);
             if(!byweek.classList.contains("selectedSummary"))
             {
               byweek.classList.add("selectedSummary");
@@ -3296,7 +3497,7 @@ function setPosts(curUser){
             e.preventDefault();
             var byweek = document.getElementById("byweek");
             var bymonth = document.getElementById("bymonth");
-            updateAnalysisByMonth(new Date(), 3, dataOfTeam);
+            updateAnalysisByMonth(new Date(), 6, dataOfTeam);
             if(!bymonth.classList.contains("selectedSummary"))
             {
               bymonth.classList.add("selectedSummary");
@@ -3317,9 +3518,9 @@ function setPosts(curUser){
                   this.classList.add("selectedMember");
 
                   if(bymonth.classList.contains("selectedSummary"))
-                    updateAnalysisByMonth(new Date(), 3, dataOfTeam);
+                    updateAnalysisByMonth(new Date(), 6, dataOfTeam);
                   else {
-                    updateAnalysisByWeek(new Date(), 3, dataOfTeam);
+                    updateAnalysisByWeek(new Date(), 6, dataOfTeam);
                   }
                 }
 
@@ -3354,8 +3555,8 @@ function setPosts(curUser){
         if(curUser.data().isAdmin)
         {
           var banner = `
-            <div class = "row bannerDiv" style = "display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70vh;">
-            <div class = "banner" style = "width: 50%; background: white; box-shadow: 0 0 15px rgba(5,5, 5,.4); padding: 100px; border-radius: 20px;">
+            <div class = "row bannerDiv" style = "display: flex; margin-right: 0 !important; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70vh;">
+            <div class = "banner boxShadow" style = "width: 50%; background: white; box-shadow: 0 0 15px rgba(5,5, 5,.4); padding: 100px; border-radius: 20px;">
             <h1 class = "bannerHead" style = "font-weight:bold; font-size: 50px;">Welcome ${curUser.data().teamName}!</h1>
             <h5 style = "margin-top: 25px; font-size: 30px;">Your Team Code is: <span style = "color: rgb(30, 144, 255)">${curUser.data().teamCode}</span></h5>
             <h5 style = "margin-top: 25px; font-size: 18px;">Once your team members signup with your team code, they can begin posting their runs!</h5>
@@ -3365,8 +3566,8 @@ function setPosts(curUser){
           noPostsSection.innerHTML = banner;
             }
           else {
-            var banner = `<div class = "row" style = "display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70vh;">
-            <div class = "banner" style = "width: 50%; background: white; box-shadow: 0 0 15px rgba(5,5, 5,.4); border-radius: 20px; padding: 100px; ">
+          var banner = `<div class = "row" style = "display: flex; margin-right: 0 !important; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 70vh;">
+            <div class = "banner boxShadow" style = "width: 50%; background: white; box-shadow: 0 0 15px rgba(5,5, 5,.4); border-radius: 20px; padding: 100px; ">
             <h1 class = "bannerHead" style = "font-weight:bold; font-size: 50px;">Welcome ${curUser.data().first}!</h1>
             <h5 style = "margin-top: 25px; font-size: 30px;">Looks like no one from ${curUser.data().teamName} has posted yet. Be the first!</h5>
             </div>
@@ -3585,14 +3786,14 @@ function setPosts(curUser){
           else {
             if(!curUser.data().isAdmin) {
             var banner = `
-              <div class = "row" style = "display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 50vh;">
+              <div class = "row" style = "display: flex; flex-direction: column; margin-right: 0 !important; justify-content: center; align-items: center; text-align: center; min-height: 50vh;">
               <div class = "banner" style = "width: 50%; background: white; box-shadow: 0 0 15px rgba(5,5, 5,.4); border-radius: 20px; padding: 100px; ">
-              <h5 style = "margin-top: 25px; font-size: 24px;">Your team Admin or moderators have not posted any routes yet.</h5>
+              <h5 style = "margin-top: 25px; font-size: 24px;">Your Team Admin or Moderators have not posted any routes yet.</h5>
               </div>
               </div>
                 `;
 
-              routesPosts.innerHTML += banner;
+              routesPosts.innerHTML = banner;
             }
           }
         }
@@ -3931,7 +4132,7 @@ function setPosts(curUser){
 	                                </div>`;
 					teamhtml+= `
 
-					<div class = "container" style = "margin-left: 2%;">
+					<div class = "container" style = "">
 						<h1 class = "settingsTitle">Account</h1>
 						<p class = "settingsText">Name: ${curUser.data().first} ${curUser.data().last}</p>`
 						if(curUser.data().isAdmin) {
@@ -4457,18 +4658,25 @@ function getPlan(planData, dateObj, target, curUser)
 	console.log(lastDay);
 	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-	var list = `<table id = "tablePlan"class = "reportTable" style = "width: 80%; margin-left: 10%;">
-							<th colspan = "5">
-							<div class = "row">
-								<div class = "col-sm-1" style = "text-align: center; color: rgb(30, 144, 255); font-size: 30px; ">
+	var list = `<table id = "tablePlan"class = "reportTable" style = "width: 90%; margin-left: 5%;">
+							<th colspan = "5" style = "background: linear-gradient(162deg, rgba(30,144,255,1) 0%, rgba(0,57,157,1) 100%)">
+							<div class = "row" style = "">
+								<div class = "col-sm-1" style = "text-align: center; color: white; font-size: 30px; ">
 								<a id = "leftPlan" ><i class="fas fa-angle-left" style = "line-height: 40px; cursor: pointer"></i></a>
 								</div>
-								<div class = "col-sm-10" style = "text-align: center;font-size: 36px;">
+								<div class = "col-sm-10" style = "text-align: center;font-size: 36px; color: white;">
 									<div id = "planDate" class = "${today.toString()}">
-										${days[today.getDay()].substring(0, 3)} ${today.getDate()} ${months[today.getMonth()]}, ${today.getFullYear()} - ${days[lastDay.getDay()].substring(0, 3)} ${lastDay.getDate()} ${months[lastDay.getMonth()]}, ${lastDay.getFullYear()}
+										${days[today.getDay()].substring(0, 3)} ${today.getDate()} ${
+    months[today.getMonth()]
+  }, ${today.getFullYear()} - ${days[lastDay.getDay()].substring(
+    0,
+    3
+  )} ${lastDay.getDate()} ${
+    months[lastDay.getMonth()]
+  }, ${lastDay.getFullYear()}
 									</div>
 								</div>
-								<div class = "col-sm-1" style = "text-align: center; color: rgb(30, 144, 255); font-size: 30px;">
+								<div class = "col-sm-1" style = "text-align: center; color: white; font-size: 30px;">
 								<a id = "rightPlan" ><i class="fas fa-angle-right" style = "line-height: 40px; cursor: pointer"></i></a>
 								</div>
 							</div>
@@ -4509,16 +4717,21 @@ function getPlan(planData, dateObj, target, curUser)
 
 			var sectionHtml = ""
 
-			sectionHtml+= `
+			sectionHtml += `
 			<tr>
-			<td><b>${day}</b></td>
-			<td class = "dayPlan ${planDay.getTime()}" style = "max-width: 50%;">
-			<span id = "${date}text" style = "white-space: pre-wrap;">${curPlan.text}</span>`
+      <td class = "dayPlan ${planDay.getTime()}" style = "max-width: 50%;">
+      <h2 style = "font-weight: bold;">${day}</h2>
+			<span id = "${date}text" style = "white-space: pre-wrap;">${
+        curPlan.text
+      }</span>`;
 
 
 			if(curUser.data().isAdmin)
 			{
-				sectionHtml+=`<div style = "text-align: right;"><a href = "" class = "editLink" id = "${date}edit" > <i class="fas fa-edit"></i> Edit</a></div>`;
+        sectionHtml+=`<div style = "text-align: left;"><a href = "" class = "editLink" id = "${date}edit" > <i class="fas fa-pen"></i> `
+        if (curPlan.text == "") sectionHtml += `Add</a></div>`;
+        else sectionHtml += `Edit</a></div>`;
+        
 			}
 
 
@@ -5528,7 +5741,7 @@ var monthArr = [];
                 table += `<tr>
 
                             <td colspan = "2"><b>${labels[i].week[j]}</b></td>
-                            <td colspan = "1">${monthArr[monthArr.length-1-i].byWeek[j].totalMileage}</td>
+                            <td colspan = "1">${monthArr[monthArr.length-1-i].byWeek[j].totalMileage.toFixedDown(2)}</td>
                             <td colspan = "1">${getPaceTime(monthArr[monthArr.length-1-i].byWeek[j].avgPace)}</td>
                           </tr>
                 `;
@@ -5571,7 +5784,13 @@ function epoch_to_mm_ss(epoch) {
   return new Date(epoch*1000).toISOString().substr(14, 5);
 }
 
-function toggleOpacity(classOfBlock, classOfFades)
+function removeDisplayOfClass(classOfBlock)
+{ 
+  var block = $(classOfBlock);
+  block.css("display", "none");
+}
+
+function toggleOpacity(classOfBlock, classOfFades, displayType)
 {
   var fades = $(classOfFades);
   var block = $(classOfBlock);
@@ -5579,9 +5798,9 @@ function toggleOpacity(classOfBlock, classOfFades)
     fades.css("opacity", "0");
 
 
-  block.css("display", "block");
+  block.css("display", displayType);
   for (var i = 0; i < fades.length; i++) {
-    $(fades[i]).animate({opacity: 1.0}, 1000);
+    $(fades[i]).animate({opacity: 1.0}, 500);
   }
   //fades.css("opacity", "1.0");
 
@@ -5612,35 +5831,89 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
 
 
-function setActivities(postList, curUser, postsByDate, startDate)
+function setActivities(postList, curUser, postsByDate, startDate, shouldClear, numPosts, curNum)
 {
-		postList.innerHTML = "";
+  if(shouldClear)
+    postList.innerHTML = "";
+  //console.log(postsByDate.length, curNum);
+
+
+  // console.log(postsByDate);
+  //   if(gender != "both")
+  //   {
+  //     for(var i = 0; i < postsByDate.length; i++)
+  //     {
+  //       console.log(gender);
+
+  //       for(var a = 0; a < postsByDate[i].posts.length; a++)
+  //       {
+  //         console.log(gender);
+  //         usersData.forEach(user => {
+  //           if(user.id == postsByDate[i].posts[a].data().userid)
+  //           {
+  //             console.log(gender);
+  //             console.log(user, postsByDate[i].posts[a], postsByDate[i]);
+
+  //             if ((gender == "male" && !user.data().isMale) || (gender == "female" && user.data().isMale))
+  //             { 
+  //               postsByDate[i].posts = postsByDate[i].posts.splice(a, 1);
+  //               console.log(postsByDate[i].posts);
+  //               console.log(a, gender, user.id, user.data().isMale);
+  //             }
+  //             if(postsByDate[i].posts.length == 0)
+  //               postsByDate = postsByDate.splice(i, 1);
+  //           }
+            
+  //         })
+  //       }
+  //     }
+  //   }
+
 
 
 		//filter postsByDate
 		tempPosts = [];
 
-		for (var i = 0; i < postsByDate.length; i++) {
+    for (var i = 0; i < postsByDate.length; i++) {
 			var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 			var thisDate = new Date(postsByDate[i].year, months.indexOf(postsByDate[i].month), postsByDate[i].day );
 
 			if(thisDate <= startDate)
 			{
-				console.log(thisDate, startDate);
-					tempPosts.push(postsByDate[i]);
+        if(postsByDate[i].posts.length > 0)
+          tempPosts.push(postsByDate[i]);
+					
 			}
 		}
 
-		postsByDate = tempPosts;
+    postsByDate = tempPosts;
+  console.log(numPosts, curNum, postsByDate.length);
+
+
+    
+  if (postsByDate.length < curNum) {
+    if (numPosts > postsByDate.length) 
+    {
+      numPosts = postsByDate.length;
+      curNum = postsByDate.length;
+    }
+    else
+    { 
+      numPosts -= curNum - postsByDate.length;
+      curNum = postsByDate.length;
+    }
+    
+  }
 
 		console.log(postsByDate);
 
 
 
 
-
 	      //loop through dates
-	      for (var i = 0; i < postsByDate.length; i++) {
+	      for (var i = curNum-numPosts; i < curNum; i++) {
+
+              console.log("hi");
 
 							//add date to postsList and divs
 		          postList.innerHTML+= `<div class = "dateSection" style = "  margin-bottom: 50px;">
@@ -5702,32 +5975,37 @@ function setActivities(postList, curUser, postsByDate, startDate)
 									});
 
 
-		            li = `
-		              <a id = "${postsByDate[i].posts[j].id}" class = "runPost ${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}" style = "cursor: pointer">
-		              <li class = "postItem"  id = "${post.userid}" >`;
-		              if(curUser.id == post.userid || curUser.data().isAdmin || curUser.data().isMod)
-		              {
-		                li+= `<div style = "position:relative; width: 100%; height:inherit;"><button class = "removePost" style = ""><i class="far fa-trash-alt fa-sm"></i></button></div>`;
-		              }
+                  li = `
+						<a id = "${postsByDate[i].posts[j].id}" class = "runPost ${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}" style = "cursor: pointer">
+						<li class = "postItem"  id = "${post.userid}" >`;
 
-		              li+= `
-		                  <img  class = "postPfp topPfp" src = "${postPfpUrl}" width = "40px" height = "40px" style = "border-radius:50%; margin-top: 5px;">
-		                  <div  class="postTitle topName" style = "font-size: 14px">  ${post.first} <br>${post.last} <br> </div>
-		                  <div ></div>
-		                  <div class = "postName"></div>
-		                  <div class = "postDetails" style = "display: none">
-		                  <table class = "postTable" style = "border-collapse: collapse; width: 100%;">
-		                  <tr >
-		                      <th colspan = "4" class = "topRow noBorder"><img class = "postPfp" src = "${postPfpUrl}" width = "40px" height = "40px" style = "border-radius:50%; margin-top: 5px;">
-		                      <div class="postTitle" style = "font-size: 24px; color: white;">  <span class = "postNameSpan" style = "line-height: 45px;">${post.first} ${post.last}</span> </div></th>
-		                  </tr>
-		                  <tr >
-		                    <th class = "noBorder">Name</th>
-		                    <th class = "noBorder">Distance</th>
-		                    <th class = "noBorder">Time</th>
-		                    <th class = "noBorder">Pace</th>
-		                  </tr>
-		                  `;
+
+                  li += `
+								<img  class = "postPfp topPfp" src = "${postPfpUrl}" width = "40px" height = "40px" style = "border-radius:50%; margin-top: 5px;">
+								<div  class="postTitle topName" style = "font-size: 14px">  ${post.first} <br>${post.last} <br> </div>
+								<div ></div>
+								<div class = "postName"></div>
+                <div id = "${postsByDate[i].posts[j].id}" class = "postDetails" style = "display: none">`;
+                  
+
+                  li += `
+								<table class = "postTable" style = "border-collapse: collapse; width: 100%; position: relative">
+                <tr>`
+                
+                  li += `<th colspan = "4" class = "topRow noBorder"><img class = "postPfp" src = "${postPfpUrl}" width = "40px" height = "40px" style = "border-radius:50%; margin-top: 5px;">`
+                    if (curUser.id == post.userid || curUser.data().isAdmin || curUser.data().isMod) {
+                    li += `<button id = "${postsByDate[i].posts[j].id}" class="editPost" style = "margin-right: 30px; padding: 10px;" > <i id="${postsByDate[i].posts[j].id}" class="fas fa-pen fa-xs"></i></button > <button class="removePost" style="padding: 10px;"><i class="far fa-trash-alt fa-sm"></i></button>`;
+                  }
+                  li +=`
+                  <div class="postTitle" style = "font-size: 24px; color: white;">  <span class = "postNameSpan" style = "line-height: 45px;">${post.first} ${post.last}</span> </div></th>
+								</tr>
+								<tr >
+									<th class = "noBorder">Name</th>
+									<th class = "noBorder">Distance</th>
+									<th class = "noBorder">Time</th>
+									<th class = "noBorder">Pace</th>
+								</tr>
+								`;
 
 		            post.segments.forEach(segment => {
 		                if(segment.distance != 0)
@@ -5830,7 +6108,13 @@ function setActivities(postList, curUser, postsByDate, startDate)
 
 		            }
 		            var activites = document.querySelectorAll(".activities");
-		            activites[i].innerHTML += li;
+                activites[i].innerHTML += li;
+                
+               
+
+
+
+                
 
 		          }
 
@@ -5842,9 +6126,35 @@ function setActivities(postList, curUser, postsByDate, startDate)
 		          // = document.querySelectorAll(".postItem")[0].innerHTML;
 		          //document.querySelectorAll(".postDetails")[0].style.display = "block";
 
-		      }
+          }
 
-		      for (var i = 0; i < postsByDate.length; i++) {
+          if (postsByDate.length > curNum)
+          {
+            var loadmorebutton = `<div style = "width: 100%; display: flex; justify-content: center">
+                        <a class = "loadmorebutton formButton" style = "margin-top: 10px; color: white !important;">Load More</a>
+                        </div>
+                        `
+            postList.innerHTML += loadmorebutton;
+
+            var loadmorebuttons = document.getElementsByClassName("loadmorebutton");
+
+            loadmorebuttons[loadmorebuttons.length - 1].addEventListener("click", (e) => {
+              e.preventDefault();
+              e.target.style.display = "none";
+              if (loadmorebuttons.length > 1) {
+                console.log("hi")
+                loadmorebuttons[loadmorebuttons.length - 2].style.display = "none";
+              }
+
+              setActivities(postList, curUser, postsByDate, startDate, false, numPosts, curNum + numPosts)
+            });
+
+          }
+                  
+          
+
+
+          for (var i = curNum - numPosts; i < curNum; i++) {
 		        var runPosts = document.querySelectorAll(".runPost");
 
 		        for (var k = 0; k < runPosts.length; k++) {
@@ -5861,13 +6171,19 @@ function setActivities(postList, curUser, postsByDate, startDate)
 		            topNames[k+i].style.display = "none";
 		            var postTitles = postItems[k].querySelectorAll(".postTitle");
 		            var org =  postTitles[0];
-		            org.style.fontSize = "20px";
+                org.style.fontSize = "20px";
+                
+                var selectedRun = document.querySelector(`#${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}selected`)
 
-		            document.querySelector(`#${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}selected`).innerHTML = postItems[k].innerHTML;
-		            if($(`#${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}selected`).find('i').length > 0)
-		              $(`#${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}selected`).find('i')[0].remove();
-		            document.querySelector(`#${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}selected`).style.borderLeft = "none";
+		            selectedRun.innerHTML = postItems[k].innerHTML;
+		            //if($(`#${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}selected`).find('i').length > 0)
+		            //  $(`#${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}selected`).find('i')[0].remove();
+                selectedRun.style.borderLeft = "none";
 		            //document.querySelector(`#${postsByDate[i].month}${postsByDate[i].day}${postsByDate[i].year}selected`).style.borderTop = "10px solid rgb(30, 144, 255)";
+
+                if (selectedRun.querySelectorAll(".postTable")[0].offsetWidth > selectedRun.querySelectorAll(".postDetails")[0].offsetWidth) {
+                  runPosts[k].parentElement.style.paddingLeft = (20 + selectedRun.querySelectorAll(".postTable")[0].offsetWidth - selectedRun.querySelectorAll(".postDetails")[0].offsetWidth) + "px";
+                }
 
 		            postItems[k].classList.add("curSelected");
 		            org.style.fontSize = "14px";
@@ -5884,18 +6200,32 @@ function setActivities(postList, curUser, postsByDate, startDate)
 
 
 		      document.querySelector("#dashPostsLoading").style.display = "none";
-		      toggleOpacity(".posts", ".dateSection");
 		      //document.querySelectorAll(".posts")[0].style.display = "block";
 
-		      var removePostButtons = document.querySelectorAll(".removePost");
-		      for (var i = 0; i < removePostButtons.length; i++) {
-		        removePostButtons[i].addEventListener("click", function(e){
-		          console.log(e.target);
-		          e.preventDefault();
-		          Delete(e.target);
+          addPostListeners();
 
-		        });
-		      }
+
+          function addPostListeners() {
+            var removePostButtons = document.querySelectorAll(".removePost");
+            for (var i = 0; i < removePostButtons.length; i++) {
+              removePostButtons[i].addEventListener("click", function (e) {
+                console.log(e.target);
+                e.preventDefault();
+                Delete(e.target);
+
+              });
+            }
+
+            var editPostButtons = document.querySelectorAll(".editPost");
+            for (var i = 0; i < editPostButtons.length; i++) {
+              editPostButtons[i].addEventListener("click", function (e) {
+                console.log(e.target);
+                e.preventDefault();
+                Edit(e.target);
+
+              });
+            }
+          }
 
 
 		      //click listeners to change selected post
@@ -5921,11 +6251,13 @@ function setActivities(postList, curUser, postsByDate, startDate)
 		                    if(selectedRuns[j].id == (this.classList[1] + "selected"))
 		                    {
 		                      var postDetails = this.querySelectorAll(".postDetails");
-		                      var postTitles = this.querySelectorAll(".postTitle");
+                          var postTitles = this.querySelectorAll(".postTitle");
+                          var postTable = this.querySelectorAll(".postTable");
 		                      var topPfps = this.querySelectorAll(".topPfp");
 		                      var org = postDetails[0];
 		                      var org2 =  postTitles[0];
-		                      var org3 =  topPfps[0];
+                          var org3 =  topPfps[0];
+                          var org4 = postTable[0];
 
 		                      org2.style.display = "none";
 		                      org3.style.display = "none";
@@ -5933,12 +6265,24 @@ function setActivities(postList, curUser, postsByDate, startDate)
 		                      org.style.display = "block";
 
 		                      selectedRuns[j].innerHTML = this.children[0].innerHTML;
-		                      if($(selectedRuns[j]).find('i').length > 0)
-		                        $(selectedRuns[j]).find('i')[0].remove();
+		                      //if($(selectedRuns[j]).find('i').length > 0)
+		                      //  $(selectedRuns[j]).find('i')[0].remove();
 		                      org.style.display = "none";
 		                      org2.style.display = "block";
 		                        org3.style.display = "block";
-		                      this.children[0].classList.add("curSelected");
+                          this.children[0].classList.add("curSelected");
+                          
+                          console.log(parseInt(this.parentElement.style.paddingLeft.substring(0, this.parentElement.style.paddingLeft.indexOf("p"))));
+
+                          if (selectedRuns[j].querySelectorAll(".postTable")[0].offsetWidth > selectedRuns[j].querySelectorAll(".postDetails")[0].offsetWidth)
+                          {
+                            console.log(this.parentElement);
+                            this.parentElement.style.paddingLeft = (20 + selectedRuns[j].querySelectorAll(".postTable")[0].offsetWidth - selectedRuns[j].querySelectorAll(".postDetails")[0].offsetWidth) + "px";
+                          }                       
+                          else if (parseInt(this.parentElement.style.paddingLeft.substring(0, this.parentElement.style.paddingLeft.indexOf("p"))) > 40)
+                          {
+                            this.parentElement.style.paddingLeft= "20px"
+                          }
 		                      break;
 		                    }
 		                  }
@@ -5958,4 +6302,241 @@ function setActivities(postList, curUser, postsByDate, startDate)
 
 
 
+}
+
+function setUpEditSection() {
+  var editpost;
+  postsData.forEach(post => {
+    console.log(post, editid)
+    if(post.id == editid)
+      editpost = post;
+  });
+
+  document.getElementById("newRunButton").style.display = "none";
+
+
+  addAmPmListeners();
+  document.getElementById("postTitle").innerHTML = "Edit Run";
+  document.getElementById("description").value = editpost.data().description;
+  document.getElementById("month").value = editpost.data().month;
+  document.getElementById("day").value = editpost.data().day;
+  document.getElementById("year").value = editpost.data().year;
+  document.getElementById("elevation").value = editpost.data().elevation;
+
+  document.getElementById("time").value = editpost.data().hour + ":" + editpost.data().minute;
+  if (ampm) document.getElementById("am").classList.add("active")
+  else document.getElementById("pm").classList.add("active");
+
+  var segmentHTML = "";
+
+  editpost.data().segments.forEach(doc => {
+        segmentHTML = `
+          <div class = "segment">
+            <div class="container" style = "background: rgb(230,230,230); padding: 20px; ">
+              <div class="row">
+                <div class="col-sm" >
+                <div class="row">
+
+                    <div class="col-sm" style = "padding: 0" >
+                    <label for="inpdark" class="inpdark" style = "width: 90%">
+                      <input autocomplete="off" value = "${doc.name}" class = "name" placeholder="&nbsp;" type = "text">
+                      <span class="labeldark">Segment Name</span>
+                      <span class="focus-bgdark"></span>
+                    </label>
+                    <div class = "segmentNameError error">Please enter a segment name</div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm" >
+                <div class="row">
+
+                    <div class="col-sm" style = "padding: 0" >
+                    <label for="inpdark" class="inpdark" style = "width: 90%">
+                      <input autocomplete="off" value = "${doc.distance}" class = "distance" placeholder="&nbsp;" min = "0" type = "number" step = "0.01">
+                      <span class="labeldark">Distance</span>
+                      <span class="focus-bgdark"></span>
+                    </label>
+                    <div class = "distanceError error">Invalid distance</div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                <div class="btn-group milesMetersGroup" role="group" aria-label="" style = "height: 40px; margin-top: 10px; ">`
+                  if(doc.miles)
+                  {
+                  segmentHTML += `<button type="button" class="btn btn-secondary miles active">Miles</button>
+                  <button type="button" class="btn btn-secondary meters">Meters</button>`
+                  }
+                  else
+                  {
+                    segmentHTML += `<button type="button" class="btn btn-secondary miles">Miles</button>
+                  <button type="button" class="btn btn-secondary meters active">Meters</button>`
+                  }
+                segmentHTML+= `</div>
+
+                </div>
+                <div class="col-sm">
+                <div class="row">
+
+                    <div class="col-sm" style = "padding:0">
+
+                      <label for="inpdark" class="inpdark" style = "width: 90%">
+                          <input autocomplete="off" value = "${doc.hours}"class = "hours" placeholder="&nbsp;" value = "0"  type = "number" min = "0" >
+                        <span class="labeldark">Hours</span>
+                        <span class="focus-bgdark"></span>
+                      </label>
+                    </div>
+                    <div class="col-sm" style = "padding:0">
+                    <label for="inpdark" class="inpdark" style = "width: 90%">
+                        <input autocomplete="off" value = "${doc.mins}" class = "minutes" placeholder="&nbsp;" value = "0"  type = "number" min = "0" >
+                      <span class="labeldark">Minutes</span>
+                      <span class="focus-bgdark"></span>
+                    </label>
+                    </div>
+                    <div class="col-sm" style = "padding:0">
+                    <label for="inpdark" class="inpdark" style = "width: 90%">
+                        <input autocomplete="off" value = "${doc.secs}" class = "seconds" placeholder="&nbsp;" value = "0"  type = "number" min = "0" >
+                      <span class="labeldark">Seconds</span>
+                      <span class="focus-bgdark"></span>
+                    </label>
+                    </div>
+                  </p>
+                  <div class = "runTimeError error" style = "width: 100%">Invalid Time</div>
+                </div>
+              </div>
+              <div class="col-sm-1" style = "margin: auto 0; ">
+                  <a style = "color: rgb(30, 144, 255); position: relative; cursor:pointer;  top: -3px; font-size: 30px;" class="remove">&#10006</a>
+              </div>
+            </div>
+          </div>
+          </div>
+          `;
+          segmentsForm.appendChild($.parseHTML(segmentHTML)[1]);
+          segmentsForm.appendChild($.parseHTML(addHTML)[1]);
+          addHtmls = document.querySelectorAll(".addhtml");
+          addHtmls[addHtmls.length - 2].style.display = "none";
+           addListeners();
+
+      });
+
+      document.getElementById("submitPost").innerHTML = "Save";
+
+
+
+  
+
+
+}
+
+function addAmPmListeners() {
+  var am = document.querySelector("#am");
+  var pm = document.querySelector("#pm");
+  am.addEventListener("click", e => {
+    e.preventDefault();
+    am = document.querySelector("#am");
+    pm = document.querySelector("#pm");
+    am.classList.add("active");
+    pm.classList.remove("active");
+  });
+
+  pm.addEventListener("click", e => {
+    e.preventDefault();
+    am = document.querySelector("#am");
+    pm = document.querySelector("#pm");
+    pm.classList.add("active");
+    am.classList.remove("active");
+  });
+
+}
+
+function resetEditID(){
+  editid = "";
+}
+
+function addGenderGroupListeners()
+{
+  var genders = [document.getElementsByClassName("both")[0], document.getElementsByClassName("male")[0], document.getElementsByClassName("female")[0]]
+
+  genders.forEach(gender => {
+    gender.addEventListener("click", e => {
+      e.preventDefault();
+      refreshAll();
+      e.target.classList.add("active");
+    })
+  });
+
+  const refreshAll = () => {
+    genders.forEach(gender => {
+      gender.classList.remove("active");
+    })
+  }
+
+}
+
+function getPostsByDate(gender)
+{
+
+  //postsByDate contains objects of dates and corresponding posts
+  var postsByDate = [];
+
+  //loop through all posts
+  postsData.forEach(doc => {
+
+    var isBanned = false;
+    usersData.forEach(user => {
+      if (doc.data().userid != null && doc.data().userid == user.id) {
+        if (user.data().isBanned)
+          isBanned = true;
+      }
+    });
+
+    if (!isBanned) {
+      //boolean if date is already put into array
+      var isPut = false;
+
+      var user;
+      usersData.forEach(u => {
+        if (u.id == doc.data().userid)
+          user = u
+      });
+
+      //check where date is already there and add it to corresponding posts
+      for (var i = 0; i < postsByDate.length; i++) {
+        if ((doc.data().day == postsByDate[i].day) && (doc.data().month == postsByDate[i].month) && (doc.data().year == postsByDate[i].year)) {
+          
+
+            console.log(gender, user.data().isMale, doc);
+
+          if (gender == "both" || (gender == "male" && user.data().isMale) || (gender == "female" && !user.data().isMale))
+          { 
+            postsByDate[i].posts.push(doc);
+            isPut = true;
+
+          }
+          
+        }
+      }
+
+      //if date is not already there
+      if (!isPut && (gender == "both" || (gender == "male" && user.data().isMale) || (gender == "female" && !user.data().isMale))) {
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var newDate = new Date(doc.data().year, months.indexOf(doc.data().month), doc.data().day);
+        //since date is not already there add a new object to postsByDate
+        postsByDate.push({
+          date: doc.data().date,
+          dayName: days[newDate.getDay()],
+          day: doc.data().day,
+          month: doc.data().month,
+          year: doc.data().year,
+          posts: [doc]
+        });
+      }
+    }
+
+
+  });
+  return postsByDate;
 }

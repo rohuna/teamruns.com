@@ -5817,7 +5817,11 @@ function setUpEditSection() {
   document.getElementById("year").value = editpost.data().year;
   document.getElementById("elevation").value = editpost.data().elevation;
 
-  document.getElementById("time").value = editpost.data().hour + ":" + editpost.data().minute;
+  if (editpost.data().minute > 9)
+    document.getElementById("time").value = editpost.data().hour + ":" + editpost.data().minute;
+  else
+    document.getElementById("time").value = editpost.data().hour + ":0" + editpost.data().minute;
+
   if (ampm) document.getElementById("am").classList.add("active")
   else document.getElementById("pm").classList.add("active");
 
@@ -5828,7 +5832,7 @@ function setUpEditSection() {
           <div class = "segment">
             <div class="container" style = "background: rgb(230,230,230); padding: 20px; ">
               <div class="row">
-                <div class="col-sm" >
+                <div class="col-sm-3" >
                 <div class="row">
 
                     <div class="col-sm" style = "padding: 0" >
@@ -5842,7 +5846,7 @@ function setUpEditSection() {
                     </div>
                   </div>
                 </div>
-                <div class="col-sm" >
+                <div class="col-sm-2" >
                 <div class="row">
 
                     <div class="col-sm" style = "padding: 0" >
@@ -5869,7 +5873,7 @@ function setUpEditSection() {
     segmentHTML += `</div>
 
                 </div>
-                <div class="col-sm">
+                <div class="col-sm-4">
                 <div class="row">
 
                     <div class="col-sm" style = "padding:0">

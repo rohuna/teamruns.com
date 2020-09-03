@@ -1,4 +1,15 @@
+//check safari
+if(isSafari || isIE)
+{
+  console.log("safari");
+  $(".bottomBackground").css({ "background": "url(\"./images/eluid.jpg\") no-repeat", "background-position": "bottom", "background-size": "cover"});
+  $(".background").css({ "background": "url(\"./images/xcphoto.jpeg\") no-repeat", "background-position": "bottom", "background-size": "cover" });
+  $(".centerContainer").css("height", "inherit");
+}
+
 // DOM elements
+
+
 
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
@@ -151,3 +162,5 @@ function heroFades(){
     $('.tagtext').animate({ opacity: '1' }, 750);
   }, 2250)
 }
+
+

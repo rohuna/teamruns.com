@@ -20,26 +20,26 @@ loginForm.addEventListener("submit", e => {
   const password = loginForm["login-password"].value;
 
   // log the user in
-  auth.signInWithEmailAndPassword(email, password).then(cred => {
-    // close the signup modal & reset form
+    auth.signInWithEmailAndPassword(email, password).then(cred => {
+      // close the signup modal & reset form
 
-    window.location.href = './dashboard';
+      window.location.href = './dashboard';
 
-  }).catch(err => {
+    }).catch(err => {
 
-    var emailError = document.getElementsByClassName("emailError");
-    var passwordError = document.getElementsByClassName("passwordError");
+      var emailError = document.getElementsByClassName("emailError");
+      var passwordError = document.getElementsByClassName("passwordError");
+      
+      console.log(err.message);
+      if(err.message == "The password is invalid or the user does not have a password.")
+          passwordError[0].style.display = "block";
+      if(err.message == "There is no user record corresponding to this identifier. The user may have been deleted.")
+        emailError[0].style.display = "block";
+      document.getElementById("loginsubmit").style.background = 'rgb(30, 144, 255)';
+      document.getElementById("loginsubmit").style.borderColor = 'rgb(30, 144, 255)';
+          });
 
-    console.log(err.message);
-    if (err.message == "The password is invalid or the user does not have a password.")
-      passwordError[0].style.display = "block";
-    if (err.message == "There is no user record corresponding to this identifier. The user may have been deleted.")
-      emailError[0].style.display = "block";
-    document.getElementById("loginsubmit").style.background = 'rgb(30, 144, 255)';
-    document.getElementById("loginsubmit").style.borderColor = 'rgb(30, 144, 255)';
-  });
-
-
+ 
 
 
 
@@ -50,13 +50,28 @@ loginForm.addEventListener("submit", e => {
 
 function googleLogIn() {
   var provider = new firebase.auth.GoogleAuthProvider();
+  isLoggedIn = false;
   auth.signInWithPopup(provider).then(function (result) {
     // This gives you a Google Access Token. You can use it to access the Google API.
     var token = result.credential.accessToken;
     // The signed-in user info.
     var user = result.user;
+    console.log(user);
 
-    window.location.href = "./dashboard";
+    db.collection("users").doc(user.uid).get().then(doc => {
+      if(doc.exists)
+      {
+        window.location.href = "./dashboard";
+      }
+      else{
+        auth.currentUser.delete().then(() => {  
+          window.location.href = "./signup"
+        });
+        
+      }
+    })
+
+   
     // ...
   }).catch(function (error) {
     // Handle Errors here.
@@ -98,30 +113,31 @@ function setModalListener() {
   }
 }
 
-function showModal() {
+function showModal()
+{
   var modal = document.getElementById("forgotModal");
   modal.style.display = "block";
 }
 
-function forgotSend(e) {
+function forgotSend(e){
   e.preventDefault();
   var emailAddress = document.getElementById("forgotForm")["forgot-email"].value;
   auth.sendPasswordResetEmail(emailAddress, {
     url: 'https://teamruns.com/login',
     handleCodeInApp: false
-  }).then(function () {
+}).then(function () {
 
     var submit = document.getElementById("forgotSubmit");
-    submit.style.background = "rgb(0,238,8)";
-    submit.style.borderColor = "rgb(0,238,8)";
-    submit.value = "sent";
-
-
+  submit.style.background = "rgb(0,238,8)";
+  submit.style.borderColor = "rgb(0,238,8)";
+  submit.value = "sent";
+    
+    
   }).catch(function (err) {
     var error = document.getElementsByClassName("emailError");
-    console.log(err.message);
-    if (err.message == "There is no user record corresponding to this identifier. The user may have been deleted.")
-      error[1].style.display = "block";
+      console.log(err.message);
+      if (err.message == "There is no user record corresponding to this identifier. The user may have been deleted.")
+        error[1].style.display = "block";
   });
   return false;
 

@@ -9,6 +9,8 @@ var isAdmin = false;
 var secondPage = false;
 
 
+
+
 var curUser;
 var authInputs = document.querySelector("#authInputs");
 var infoInputs = document.querySelector("#infoInputs");
@@ -18,6 +20,10 @@ var authButton = document.querySelector("#authButton");
 var infoButton = document.querySelector("#infoButton");
 var setPfpButton = document.querySelector("#setPfpButton");
 var emailVerifyButton = document.querySelector("#emailVerifyButton");
+var email;
+var first;
+
+
 authInputs.addEventListener("submit", function(e){
   e.preventDefault();
   authButton.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
@@ -27,7 +33,7 @@ authInputs.addEventListener("submit", function(e){
   var confirmPasswordError = document.getElementsByClassName("confirmPasswordError");
   var emailError = document.getElementsByClassName("emailError");
 
-  const email = authInputs["signup-email"].value;
+  email = authInputs["signup-email"].value;
   var password = authInputs["signup-password"].value;
   var confirmpassword = authInputs["signup-confirmpassword"].value;
 
@@ -90,6 +96,7 @@ authInputs.addEventListener("submit", function(e){
               .doc(cred.user.uid)
               .set({
                 isBanned: false,
+                email: email,
                 isMod: false,
                 teamName: "",
                 teamCode: "",
@@ -138,7 +145,7 @@ infoInputs.addEventListener("submit", function(e){
   var typeError = document.getElementsByClassName("typeError");
 
 
-  var first =  infoInputs["first-name"].value;
+  first =  infoInputs["first-name"].value;
   var last = infoInputs["last-name"].value;
   var teamName = infoInputs["signup-teamName"].value;
 
@@ -236,6 +243,9 @@ infoInputs.addEventListener("submit", function(e){
                 }).then(() => {
                   document.querySelector("#infoForm").style.display = "none";
                   document.querySelector("#setPfpForm").style.display = "block";
+                  axios.post("https://cors-anywhere.herokuapp.com/https://us-central1-teamrunsemail.cloudfunctions.net/email/email/welcome",  {to: email, teamCode: teamCode, firstName: first}).catch(err => {
+                    console.log(err);
+                  });
 
                 })
 
@@ -420,6 +430,8 @@ function googleSignIn()
       });
     // ...
   }).catch(function (error) {
+
+    console.log(error);
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -1280,4 +1292,18 @@ context.getImageData(0, 0, canvas.width, canvas.height).data.buffer
 );
 
 return !pixelBuffer.some(color => color !== 0);
+}
+
+function setCurUser()
+{
+  if(usersData != null)
+  {
+    usersData.forEach(user => {
+      if (user.id == userID.uid)
+        curUser = user;
+    });
+  }
+  else{
+    setTimeout(setCurUser(), 100);
+  }
 }

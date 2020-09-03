@@ -15,6 +15,7 @@ function setUser(user) {
   if(user) userID = user;
   else userID = null;
 }
+var isLoggedIn = true;
 
 // listen for auth status changes
 auth.onAuthStateChanged(user => {
@@ -29,7 +30,7 @@ auth.onAuthStateChanged(user => {
     {
       window.location.href = './dashboard';
     }
-    if(window.location.pathname == '/login')
+    if(window.location.pathname == '/login' && isLoggedIn)
     {
       window.location.href = './dashboard';
     }
@@ -47,8 +48,6 @@ auth.onAuthStateChanged(user => {
             postsData = snapshot.docs;
             setPfp();
             checkDataReady(user);
-            
-            setupUI(user);
 
             setUpPostForm();
           },
